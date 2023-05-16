@@ -1,25 +1,18 @@
-import React, { createRef, useEffect, useRef, useState } from "react";
-import { useAppSelector, useAppDispatch } from "../app/hooks";
-import {
-  loadStatus,
-  selectTasks,
-  tasksLoaded,
-  addProvingTask,
-} from "../data/statusSlice";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import { Form } from "react-bootstrap";
-import { QRCodeSVG } from "qrcode.react";
-import initGameInstance from "../js/g1024";
-import History from "../components/History";
-import { NewProveTask } from "../modals/addNewProveTask";
-
+import "bootswatch/dist/slate/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 
 import "./style.scss";
-import "bootswatch/dist/slate/bootstrap.min.css";
+
+import { useEffect, useState } from "react";
+import { Container, Row, Col } from "react-bootstrap";
+import { QRCodeSVG } from "qrcode.react";
+
+import { useAppSelector, useAppDispatch } from "../app/hooks";
+import { tasksLoaded } from "../data/statusSlice";
 import CurrencyDisplay from "../components/Currency";
-import { Container } from "react-bootstrap";
+import initGameInstance from "../js/g1024";
+import History from "../components/History";
+import { NewProveTask } from "../modals/addNewProveTask";
 import { MainNavBar } from "../components/Nav";
 import One from "../images/1.png";
 import Two from "../images/2.png";
@@ -302,11 +295,11 @@ export function Main() {
             </Row>
             <Row className="game-info mt-4">
               <Row>
-                HOW TO PLAY: Use your arrow keys to move the tiles.
-                Each time you move, one currency unit is deducted. When two
-                tiles with the same icon touch, they merge into one tile with
-                same icon they summed to one! When you make the highest tile,
-                you can sell the highest tile for currency.
+                HOW TO PLAY: Use your arrow keys to move the tiles. Each time
+                you move, one currency unit is deducted. When two tiles with the
+                same icon touch, they merge into one tile with same icon they
+                summed to one! When you make the highest tile, you can sell the
+                highest tile for currency.
               </Row>
               <Row className="my-4">
                 <div className="d-flex align-items-center justify-content-center">
