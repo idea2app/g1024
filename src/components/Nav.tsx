@@ -1,23 +1,12 @@
-import React, { createRef, useState, useEffect, useRef } from "react";
 import "./style.scss";
+
+import { useEffect } from "react";
+import { Container, Nav, Navbar } from "react-bootstrap";
+
 import { useAppSelector, useAppDispatch } from "../app/hooks";
 import { loginL1AccountAsync, selectL1Account } from "../data/accountSlice";
 import { addressAbbreviation } from "../utils/address";
-import CurrencyDisplay from "./Currency";
-import {
-  Button,
-  Container,
-  Form,
-  Nav,
-  Navbar,
-  NavDropdown,
-  Row,
-  Col,
-} from "react-bootstrap";
-
-import logo from "../images/logo.png";
-import Restart from "../images/restart.png";
-import HomeIcon from "../images/home-icon.png";
+import logo from "../images/logo.svg";
 
 interface IProps {
   currency: number;
@@ -39,23 +28,15 @@ export function MainNavBar(props: IProps) {
         <Navbar.Brand href="http://www.delphinuslab.com">
           <img src={logo} height="30" alt="logo"></img>
         </Navbar.Brand>
-        <Nav.Item className="action-items d-flex">
-          <img src={HomeIcon} height="30" alt="restart" className="me-2 "></img>
-          <img
-            src={Restart}
-            height="30"
-            alt="restart"
-            className="me-2 restart-button"
-            onClick={() => props.handleRestart}
-          ></img>
-          <CurrencyDisplay value={props.currency}></CurrencyDisplay>
-        </Nav.Item>
 
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
 
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto">
-            <div className="divider"></div>
+            <button className="appearance-none rounded-pill fs-5 fw-semibold score-button me-4 px-4 d-flex justify-content-between align-items-center common-button">
+              <span>Best Score</span>
+              <span className="gradient-content">6889</span>
+            </button>
             {account && (
               <>
                 <Navbar.Text>
@@ -66,12 +47,12 @@ export function MainNavBar(props: IProps) {
             )}
             {!account && (
               <>
-                <Nav.Link
+                <button
                   onClick={() => dispatch(loginL1AccountAsync())}
-                  className="px-2 my-2 py-0"
+                  className="appearance-none rounded-pill border-0 fs-5 fw-semibold ms-4 ms-xl-0 text-black connect"
                 >
                   Connect Wallet
-                </Nav.Link>
+                </button>
               </>
             )}
           </Nav>
