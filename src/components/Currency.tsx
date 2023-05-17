@@ -1,3 +1,5 @@
+import "./style.scss";
+
 interface IProps {
   tag?: string;
   value: number;
@@ -8,9 +10,11 @@ export default function CurrencyDisplay(props: IProps) {
   const { tag = "Currency", value } = props;
   return (
     <>
-      <div className={`currency-display ${props.className}`}>
-        <span className="tag">{tag}</span>
-        <span className="value ms-2">{value}</span>
+      <div
+        className={`currency-display fs-5 px-3 d-flex justify-content-between align-items-center fw-bold ${props.className}`}
+      >
+        <span className="text-white">{tag}</span>
+        <span className="gradient-content">{value.toLocaleString()}</span>
       </div>
     </>
   );

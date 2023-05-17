@@ -18,7 +18,7 @@ import One from "../images/1.png";
 import Two from "../images/2.png";
 import Three from "../images/3.png";
 import Four from "../images/4.png";
-import Title from "../images/2048_title.png";
+import Control from "../images/control.svg";
 
 export function Main() {
   const dispatch = useAppDispatch();
@@ -201,15 +201,12 @@ export function Main() {
       <Container className="justify-content-center mb-4">
         <Row className="justify-content-md-center  m-auto mt-3">
           <Col className="d-flex justify-content-between align-items-center p-0 game-width">
-            <img src={Title} height="40px" alt="title" className="me-4" />
+            <h2 className="fs-1 fw-bold gradient-content icon-2048">2048</h2>
             <CurrencyDisplay
-              tag="Best"
-              value={highscore}
               className="high-score mx-2"
+              tag="Score"
+              value={highscore}
             ></CurrencyDisplay>
-            <button onClick={() => sell()} className="sell-button ms-2">
-              Sell
-            </button>
           </Col>
         </Row>
         <Row className="mt-3">
@@ -236,6 +233,9 @@ export function Main() {
             </div>
           </Col>
         </Row>
+        <div className="text-center">
+          <img src={Control} alt="#" />
+        </div>
         <Row className="justify-content-center overflow-breakword my-4">
           <Col sm={7} className="game-inputs py-2">
             <div>

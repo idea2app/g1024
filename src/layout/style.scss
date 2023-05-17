@@ -261,14 +261,9 @@ div.board-cell-16 {
 }
 
 .high-score {
-  min-width: 175px;
-  span {
-    color: var(--info-text-color) !important;
-  }
-  .tag {
-    font-size: 16px !important;
-  }
-  .value {
-    font-size: 24px !important;
-  }
+  max-width: 11rem;
+}
+
+.icon-2048 {
+  text-shadow: 0px 0px 20px rgba(0, 236, 255, 0.4);
 }

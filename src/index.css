@@ -33,6 +33,11 @@ html {
   --table-bg: #546f80;
   --table-border-color: #2e3c46;
   --icon-hover: #f1f0e1;
+  --button-gradient: linear-gradient(
+    180deg,
+    #20314b 0%,
+    rgba(32, 49, 75, 0) 100%
+  );
 }
 
 .appearance-none {
@@ -43,4 +48,10 @@ html {
   &::-webkit-search-cancel-button {
     display: none;
   }
+}
+
+.gradient-content {
+  background: linear-gradient(90deg, #418dff 0%, #4bffdf 100%);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }

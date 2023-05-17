@@ -1,12 +1,11 @@
-import "./style.scss";
-
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
 
 import { useAppSelector, useAppDispatch } from "../app/hooks";
 import { loginL1AccountAsync, selectL1Account } from "../data/accountSlice";
 import { addressAbbreviation } from "../utils/address";
 import logo from "../images/logo.svg";
+import CurrencyDisplay from "./Currency";
 
 interface IProps {
   currency: number;
@@ -17,6 +16,8 @@ export function MainNavBar(props: IProps) {
   const dispatch = useAppDispatch();
 
   let account = useAppSelector(selectL1Account);
+
+  const [maxScore, setmaxScore] = useState(6889);
 
   useEffect(() => {
     dispatch(loginL1AccountAsync());
@@ -33,10 +34,7 @@ export function MainNavBar(props: IProps) {
 
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto">
-            <button className="appearance-none rounded-pill fs-5 fw-semibold score-button me-4 px-4 d-flex justify-content-between align-items-center common-button">
-              <span>Best Score</span>
-              <span className="gradient-content">6889</span>
-            </button>
+            <CurrencyDisplay tag="Best Score" value={maxScore} />
             {account && (
               <>
                 <Navbar.Text>
