@@ -5,4 +5,5 @@
 # All js files
 *.js
 
-node_modules
+node_modules/
+build/
