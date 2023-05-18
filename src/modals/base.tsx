@@ -75,14 +75,20 @@ export function ModalCommon(props: ModalCommonProps) {
         dialogClassName="modal-90w"
         role="dialog"
       >
-        <Modal.Header>{props.title}</Modal.Header>
+        <Modal.Header>
+          <h5 className="w-100 text-center fs-3">{props.title}</h5>
+          <button
+            type="button"
+            className="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+            onClick={handleClose}
+          />
+        </Modal.Header>
         <Modal.Body className="show-grid">{props.children}</Modal.Body>
-        <Modal.Footer>
+        <Modal.Footer className="flex-column">
           <Message></Message>
 
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
           {props.handleConfirm && props.status === ModalStatus.PreConfirm && (
             <Button
               variant="primary"
