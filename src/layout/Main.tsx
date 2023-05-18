@@ -207,9 +207,6 @@ export function Main() {
               value={highscore}
               className="high-score mx-2"
             ></CurrencyDisplay>
-            <button onClick={() => sell()} className="sell-button ms-2">
-              Sell
-            </button>
           </Col>
         </Row>
         <Row className="mt-3">
@@ -236,6 +233,18 @@ export function Main() {
             </div>
           </Col>
         </Row>
+
+        <div className="container-max mx-auto d-flex justify-content-between my-3">
+          <button onClick={() => sell()} className="sell-button rounded-pill w-50 p-2">
+            Sell
+          </button>
+          <NewProveTask
+            md5="77DA9B5A42FABD295FD67CCDBDF2E348"
+            inputs={`${commands.length}:i64`}
+            witness={getWitness()}
+          ></NewProveTask>
+        </div>
+
         <Row className="justify-content-center overflow-breakword my-4">
           <Col lg={6} xs={12} className="game-inputs border-box rounded-4">
             <Row className="py-2 border-content rounded-4">
@@ -267,22 +276,6 @@ export function Main() {
             </Row>
           </Col>
         </Row>
-
-        {commands.length > 0 && (
-          <>
-            <div className="d-flex justify-content-center">
-              <Row className="justify-content-md-center">
-                <Col>
-                  <NewProveTask
-                    md5="77DA9B5A42FABD295FD67CCDBDF2E348"
-                    inputs={`${commands.length}:i64`}
-                    witness={getWitness()}
-                  ></NewProveTask>
-                </Col>
-              </Row>
-            </div>
-          </>
-        )}
 
         <div className="rounded-4 border-box container-max mx-auto text-center">
           <div className="border-content py-3">

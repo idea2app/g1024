@@ -64,9 +64,9 @@ export function ModalCommon(props: ModalCommonProps) {
 
   return (
     <>
-      <div className="modal-btn" onClick={handleShow}>
+      <span className="modal-btn" onClick={handleShow}>
         {props.btnLabel}
-      </div>
+      </span>
       <Modal
         show={show}
         size="lg"

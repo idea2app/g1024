@@ -1,3 +1,5 @@
+@import "../index";
+
 @font-face {
   font-family: "Be Vietnam";
   src: url(../fonts/BeVietnamPro-Regular.ttf);
@@ -246,18 +248,9 @@ div.board-cell-16 {
 }
 
 .sell-button {
-  border: none;
-  background-color: var(--button-main);
-  padding: 5px 30px;
-  border-radius: 5px;
-  color: var(--info-text-color);
-  font-family: "Be Vietnam";
-  font-style: normal;
-  font-weight: 600;
-  font-size: 24px;
-  transition: 0.3s all ease;
-  &:hover {
-    background-color: var(--button-hover);
+  @extend .border-box;
+  &:before {
+    background: linear-gradient(90deg, #4da1ff 0%, #4dffdf 100%);
   }
 }
 
