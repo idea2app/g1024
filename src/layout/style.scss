@@ -247,13 +247,6 @@ div.board-cell-16 {
   }
 }
 
-.sell-button {
-  @extend .border-box;
-  &:before {
-    background: linear-gradient(90deg, #4da1ff 0%, #4dffdf 100%);
-  }
-}
-
 .high-score {
   min-width: 175px;
   span {

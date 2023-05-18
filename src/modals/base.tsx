@@ -15,6 +15,7 @@ import "./style.scss";
 import React from "react";
 import { selectL1Account } from "../data/accountSlice";
 import { loadStatus } from "../data/statusSlice";
+import { CommonButton } from "../components/CommonButton";
 export interface ModalCommonProps {
   btnLabel: React.ReactNode;
   title: string;
@@ -64,9 +65,9 @@ export function ModalCommon(props: ModalCommonProps) {
 
   return (
     <>
-      <span className="modal-btn" onClick={handleShow}>
+      <div className="modal-btn" onClick={handleShow}>
         {props.btnLabel}
-      </span>
+      </div>
       <Modal
         show={show}
         size="lg"

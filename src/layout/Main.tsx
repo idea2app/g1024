@@ -19,6 +19,7 @@ import Two from "../images/2.png";
 import Three from "../images/3.png";
 import Four from "../images/4.png";
 import Title from "../images/2048_title.png";
+import { CommonButton } from "../components/CommonButton";
 
 export function Main() {
   const dispatch = useAppDispatch();
@@ -235,19 +236,21 @@ export function Main() {
         </Row>
 
         <div className="container-max mx-auto d-flex justify-content-between my-3">
-          <button onClick={() => sell()} className="sell-button rounded-pill w-50 p-2">
+          <CommonButton className="w-50 me-2" border onClick={sell}>
             Sell
-          </button>
-          <NewProveTask
-            md5="77DA9B5A42FABD295FD67CCDBDF2E348"
-            inputs={`${commands.length}:i64`}
-            witness={getWitness()}
-          ></NewProveTask>
+          </CommonButton>
+          <div className="w-50 ms-2">
+            <NewProveTask
+              md5="77DA9B5A42FABD295FD67CCDBDF2E348"
+              inputs={`${commands.length}:i64`}
+              witness={getWitness()}
+            ></NewProveTask>
+          </div>
         </div>
 
         <Row className="justify-content-center overflow-breakword my-4">
           <Col lg={6} xs={12} className="game-inputs border-box rounded-4">
-            <Row className="py-2 border-content rounded-4">
+            <Row className="py-3 border-content rounded-4">
               <Col>
                 <div>
                   <i
