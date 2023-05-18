@@ -1,15 +1,8 @@
-import React, { createRef, useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useAppSelector, useAppDispatch } from "../app/hooks";
-import {
-  loadStatus,
-  selectTasks,
-  tasksLoaded,
-  addProvingTask,
-} from "../data/statusSlice";
+import { tasksLoaded } from "../data/statusSlice";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import { Form } from "react-bootstrap";
-import { QRCodeSVG } from "qrcode.react";
 import initGameInstance from "../js/g1024";
 import History from "../components/History";
 import { NewProveTask } from "../modals/addNewProveTask";
@@ -206,7 +199,7 @@ export function Main() {
     <>
       <MainNavBar currency={currency} handleRestart={restartGame}></MainNavBar>
       <Container className="justify-content-center mb-4">
-        <Row className="justify-content-md-center  m-auto mt-3">
+        <Row className="justify-content-md-center m-auto mt-3">
           <Col className="d-flex justify-content-between align-items-center p-0 game-width">
             <img src={Title} height="40px" alt="title" className="me-4" />
             <CurrencyDisplay
@@ -287,51 +280,35 @@ export function Main() {
           </>
         )}
 
-        <Row className="justify-content-center">
-          <Col sm={7}>
-            <Row className="pt-4">
-              <Col className="d-flex qr-code">
-                <div>
-                  <QRCodeSVG value={getURI()} />
-                </div>
-
-                <div className="ms-4 qr-msg">
-                  Scan this QR Code to redeem your prize
-                </div>
-              </Col>
-            </Row>
-            <Row className="game-info mt-4">
-              <Row>
-                HOW TO PLAY: Use your arrow keys to move the tiles.
-                Each time you move, one currency unit is deducted. When two
-                tiles with the same icon touch, they merge into one tile with
-                same icon they summed to one! When you make the highest tile,
-                you can sell the highest tile for currency.
-              </Row>
-              <Row className="my-4">
-                <div className="d-flex align-items-center justify-content-center">
-                  <img src={One} alt="" className="game-icon" />
-                  <i className="bi bi-plus-lg mx-2"></i>
-                  <img src={One} alt="" className="game-icon" />
-                  <i className="bi bi-arrow-right mx-2"></i>
-                  <img src={Two} alt="" className="game-icon" />
-                  <i className="bi bi-plus-lg mx-2"></i>
-                  <img src={Two} alt="" className="game-icon" />
-                  <i className="bi bi-arrow-right mx-2"></i>
-                  <img src={Three} alt="" className="game-icon" />
-                  <i className="bi bi-plus-lg mx-2"></i>
-                  <img src={Three} alt="" className="game-icon" />
-                  <i className="bi bi-arrow-right mx-2"></i>
-                  <img src={Four} alt="" className="game-icon" />
-                  <i className="bi bi-plus-lg mx-2"></i>
-                  <span>...etc</span>
-                </div>
-              </Row>
-              <Row>
-                Game is based on Saming's 2048 and conceptually similar to
-                Threes by Asher Vollmer.
-              </Row>
-            </Row>
+        <Row className="justify-content-center mx-auto text-center my-3">
+          <Col lg={6} xs={12}>
+            <h2>HOW TO PLAY?</h2>
+            <span style={{ fontSize: "18px" }}>
+              Use your arrow keys to move the tiles. Each time you move, one
+              currency unit is deducted. When two tiles with the same icon
+              touch, they merge into one tile with same icon they summed to one!
+              When you make the highest tile, you can sell the highest tile for
+              currency.
+            </span>
+          </Col>
+        </Row>
+        <Row className="justify-content-center my-3">
+          <Col lg={6} xs={12}>
+            <div className="d-flex align-items-center justify-content-center">
+              {[One, Two, Three, Four].map((src, index) => (
+                <>
+                  <img src={src} alt="#" className="game-icon" />
+                  {index !== 3 && (
+                    <>
+                      <span className="mx-2">+</span>
+                      <img src={src} alt="#" className="game-icon" />
+                      <span className="mx-2">=</span>
+                    </>
+                  )}
+                </>
+              ))}
+              <span className="ms-2">...</span>
+            </div>
           </Col>
         </Row>
       </Container>
