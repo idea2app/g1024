@@ -237,30 +237,34 @@ export function Main() {
           </Col>
         </Row>
         <Row className="justify-content-center overflow-breakword my-4">
-          <Col sm={7} className="game-inputs py-2">
-            <div>
-              <i
-                className="bi bi-eye me-2 cursor-pointer"
-                onClick={() => setShowInputsAsRaw(!showInputsAsRaw)}
-              ></i>
-              <span>
-                {showInputsAsRaw ? "Show Commands" : "Show Raw Proof Inputs"}
-              </span>
-            </div>
-            {showInputsAsRaw ? (
-              <>
-                <div>{getURI()}</div>
-              </>
-            ) : (
-              <>
+          <Col lg={6} xs={12} className="game-inputs border-box rounded-4">
+            <Row className="py-2 border-content rounded-4">
+              <Col>
                 <div>
-                  {commands.length == 0 && "No inputs made yet!"}
-                  {displayCommandIcons().map((icon) => {
-                    return icon;
-                  })}
+                  <i
+                    className="bi bi-eye me-2 cursor-pointer"
+                    onClick={() => setShowInputsAsRaw(!showInputsAsRaw)}
+                  ></i>
+                  <span>
+                    {showInputsAsRaw
+                      ? "Show Commands"
+                      : "Show Raw Proof Inputs"}
+                  </span>
                 </div>
-              </>
-            )}
+              </Col>
+              <Col className="text-end">
+                {showInputsAsRaw ? (
+                  <div>{getURI()}</div>
+                ) : (
+                  <div>
+                    {commands.length == 0 && "No inputs made yet!"}
+                    {displayCommandIcons().map((icon) => {
+                      return icon;
+                    })}
+                  </div>
+                )}
+              </Col>
+            </Row>
           </Col>
         </Row>
 
@@ -280,21 +284,17 @@ export function Main() {
           </>
         )}
 
-        <Row className="justify-content-center mx-auto text-center my-3">
-          <Col lg={6} xs={12}>
+        <div className="rounded-4 border-box container-max mx-auto text-center">
+          <div className="border-content py-3">
             <h2>HOW TO PLAY?</h2>
-            <span style={{ fontSize: "18px" }}>
+            <p className="px-4" style={{ fontSize: "18px" }}>
               Use your arrow keys to move the tiles. Each time you move, one
               currency unit is deducted. When two tiles with the same icon
               touch, they merge into one tile with same icon they summed to one!
               When you make the highest tile, you can sell the highest tile for
               currency.
-            </span>
-          </Col>
-        </Row>
-        <Row className="justify-content-center my-3">
-          <Col lg={6} xs={12}>
-            <div className="d-flex align-items-center justify-content-center">
+            </p>
+            <div className="d-flex align-items-center justify-content-center my-3">
               {[One, Two, Three, Four].map((src, index) => (
                 <>
                   <img src={src} alt="#" className="game-icon" />
@@ -309,8 +309,8 @@ export function Main() {
               ))}
               <span className="ms-2">...</span>
             </div>
-          </Col>
-        </Row>
+          </div>
+        </div>
       </Container>
       <History md5="77DA9B5A42FABD295FD67CCDBDF2E348"></History>
     </>

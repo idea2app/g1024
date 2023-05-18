@@ -237,9 +237,12 @@ div.board-cell-16 {
   height: 50px;
 }
 .game-inputs {
-  background-color: var(--navbar-bg);
-  border-radius: 15px;
-  width: 500px !important;
+  border-radius: 20px;
+  max-width: 560px !important;
+  color: #4e78b8;
+  .border-content {
+    border-radius: 20px;
+  }
 }
 
 .sell-button {
