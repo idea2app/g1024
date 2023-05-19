@@ -1,8 +1,6 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { RootState } from '../app/store';
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { RootState } from "../app/store";
 import {
-  Statistics,
-  DeployParams,
   ProvingParams,
   StatusState,
   QueryParams,
@@ -25,7 +23,7 @@ export const loadStatus = createAsyncThunk(
   async (query: QueryParams, thunkApi) => {
     let state = thunkApi.getState() as RootState;
     let helper = state.endpoint.zkWasmServiceHelper;
-    let tasks = await helper.loadTasks(query);
+    let tasks = (await helper.loadTasks(query)).data;
     return tasks;
   }
 );
@@ -40,10 +38,8 @@ export const addProvingTask = createAsyncThunk(
   }
 );
 
-
-
 export const statusSlice = createSlice({
-  name: 'status',
+  name: "status",
   initialState,
   reducers: {
     updateState: (state, d) => {
@@ -52,16 +48,15 @@ export const statusSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder
-      .addCase(loadStatus.fulfilled, (state, c) => {
-          console.log("payload", c.payload);
-          state.tasks = c.payload;
-          state.loaded = true;
-      });
+    builder.addCase(loadStatus.fulfilled, (state, c) => {
+      console.log("payload", c.payload);
+      state.tasks = c.payload;
+      state.loaded = true;
+    });
   },
 });
 
 export const { updateState } = statusSlice.actions;
-export const selectTasks = (state:RootState) => state.status.tasks;
-export const tasksLoaded = (state:RootState) => state.status.loaded;
+export const selectTasks = (state: RootState) => state.status.tasks;
+export const tasksLoaded = (state: RootState) => state.status.loaded;
 export default statusSlice.reducer;

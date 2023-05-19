@@ -302,11 +302,11 @@ export function Main() {
             </Row>
             <Row className="game-info mt-4">
               <Row>
-                HOW TO PLAY: Use your arrow keys to move the tiles.
-                Each time you move, one currency unit is deducted. When two
-                tiles with the same icon touch, they merge into one tile with
-                same icon they summed to one! When you make the highest tile,
-                you can sell the highest tile for currency.
+                HOW TO PLAY: Use your arrow keys to move the tiles. Each time
+                you move, one currency unit is deducted. When two tiles with the
+                same icon touch, they merge into one tile with same icon they
+                summed to one! When you make the highest tile, you can sell the
+                highest tile for currency.
               </Row>
               <Row className="my-4">
                 <div className="d-flex align-items-center justify-content-center">
@@ -335,7 +335,11 @@ export function Main() {
           </Col>
         </Row>
       </Container>
-      <History md5="77DA9B5A42FABD295FD67CCDBDF2E348"></History>
+      <Container>
+        <div className="common-card-bg-box">
+          <History md5="77DA9B5A42FABD295FD67CCDBDF2E348"></History>
+        </div>
+      </Container>
     </>
   );
 }
