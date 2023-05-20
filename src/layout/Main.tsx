@@ -1,25 +1,24 @@
-import { Fragment, useEffect, useState } from "react";
-import { useAppSelector, useAppDispatch } from "../app/hooks";
-import { tasksLoaded } from "../data/statusSlice";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import initGameInstance from "../js/g1024";
-import History from "../components/History";
-import { NewProveTask } from "../modals/addNewProveTask";
-
+import "bootswatch/dist/slate/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 
 import "./style.scss";
-import "bootswatch/dist/slate/bootstrap.min.css";
-import CurrencyDisplay from "../components/Currency";
-import { Container } from "react-bootstrap";
+
+import { Fragment, useEffect, useState } from "react";
+import { Container, Row, Col } from "react-bootstrap";
+
+import { useAppSelector, useAppDispatch } from "../app/hooks";
+import { tasksLoaded } from "../data/statusSlice";
+import { CurrencyDisplay } from "../components/Currency";
+import initGameInstance from "../js/g1024";
+import History from "../components/History";
+import { NewProveTask } from "../modals/addNewProveTask";
 import { MainNavBar } from "../components/Nav";
+import { CommonButton } from "../components/CommonButton";
 import One from "../images/1.png";
 import Two from "../images/2.png";
 import Three from "../images/3.png";
 import Four from "../images/4.png";
-import Title from "../images/2048_title.png";
-import { CommonButton } from "../components/CommonButton";
+import Control from "../images/control.svg";
 
 export function Main() {
   const dispatch = useAppDispatch();
@@ -202,11 +201,11 @@ export function Main() {
       <Container className="justify-content-center mb-4">
         <Row className="justify-content-md-center m-auto mt-3">
           <Col className="d-flex justify-content-between align-items-center p-0 game-width">
-            <img src={Title} height="40px" alt="title" className="me-4" />
+            <h2 className="fs-1 fw-bold gradient-content icon-2048">2048</h2>
             <CurrencyDisplay
-              tag="Best"
-              value={highscore}
               className="high-score mx-2"
+              tag="Score"
+              value={highscore}
             ></CurrencyDisplay>
           </Col>
         </Row>
@@ -246,6 +245,10 @@ export function Main() {
               witness={getWitness()}
             />
           </div>
+        </div>
+
+        <div className="text-center">
+          <img src={Control} alt="#" />
         </div>
 
         <Row className="justify-content-center overflow-breakword my-4">
