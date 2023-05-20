@@ -15,7 +15,7 @@ export default function ImageDetail(props: UserHistoryProps) {
   let account = useAppSelector(selectL1Account);
   const query = {
     md5: props.md5,
-    user_address: account ? account!.address : "",
+    user_address: account?.address || "",
     id: "",
     tasktype: "Prove",
     taskstatus: "",
@@ -47,22 +47,20 @@ export default function ImageDetail(props: UserHistoryProps) {
           {tasks?.[0] &&
             tasks.map((d) => {
               return (
-                <>
-                  <tr key={d._id["$oid"]}>
-                    <td>
-                      <span>{d._id["$oid"]}</span>
-                    </td>
-                    <td>
-                      <span>{d.user_address}</span>
-                    </td>
-                    <td>
-                      <span>{d.status}</span>
-                    </td>
-                    <td>
-                      <ProofInfoModal task={d}></ProofInfoModal>
-                    </td>
-                  </tr>
-                </>
+                <tr key={d._id["$oid"]}>
+                  <td>
+                    <span>{d._id["$oid"]}</span>
+                  </td>
+                  <td>
+                    <span>{d.user_address}</span>
+                  </td>
+                  <td>
+                    <span>{d.status}</span>
+                  </td>
+                  <td>
+                    <ProofInfoModal task={d}></ProofInfoModal>
+                  </td>
+                </tr>
               );
             })}
         </tbody>
