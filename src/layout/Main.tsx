@@ -6,8 +6,6 @@ import "./style.scss";
 import { Fragment, useEffect, useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 
-import { useAppSelector, useAppDispatch } from "../app/hooks";
-import { tasksLoaded } from "../data/statusSlice";
 import { CurrencyDisplay } from "../components/Currency";
 import initGameInstance from "../js/g1024";
 import History from "../components/History";
@@ -21,7 +19,6 @@ import Four from "../images/4.png";
 import Control from "../images/control.svg";
 
 export function Main() {
-  const dispatch = useAppDispatch();
   const [board, setBoard] = useState([
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
   ]);
@@ -29,10 +26,8 @@ export function Main() {
   const [currency, setCurrency] = useState(20);
   const [commands, setCommands] = useState<Array<number>>([]);
   const [highscore, setHighscore] = useState(20);
-  const [submitURI, setSubmitURI] = useState("");
 
   const [showInputsAsRaw, setShowInputsAsRaw] = useState(false);
-  let ready = useAppSelector(tasksLoaded);
 
   function appendCommand(cmds: Array<number>) {
     setCommands((commands) => {
@@ -44,11 +39,11 @@ export function Main() {
     event.preventDefault();
     if (event.key === "ArrowUp" || event.key === "w") {
       step(0);
-    } else if (event.key == "ArrowLeft" || event.key === "a") {
+    } else if (event.key === "ArrowLeft" || event.key === "a") {
       step(1);
-    } else if (event.key == "ArrowDown" || event.key === "s") {
+    } else if (event.key === "ArrowDown" || event.key === "s") {
       step(2);
-    } else if (event.key == "ArrowRight" || event.key === "d") {
+    } else if (event.key === "ArrowRight" || event.key === "d") {
       step(3);
     }
   }
@@ -59,7 +54,6 @@ export function Main() {
         board[i] = ins.getBoard(i);
       }
       setBoard([...board]);
-      //ins.setCurrency(40);
       setCurrency(ins.getCurrency());
     });
     document.addEventListener("keydown", arrowFunction, false);
@@ -69,7 +63,6 @@ export function Main() {
   }, []);
 
   useEffect(() => {
-    //Set highscore
     if (currency > highscore) setHighscore(currency);
   }, [currency]);
 
@@ -141,7 +134,7 @@ export function Main() {
 
   async function step(k: number) {
     let ins = await initGameInstance();
-    if (ins.getCurrency() == 0) {
+    if (ins.getCurrency() === 0) {
       alert("not enough currency to proceed!");
       return;
     }
@@ -161,7 +154,7 @@ export function Main() {
 
   async function sell() {
     let ins = await initGameInstance();
-    if (focus != -1) {
+    if (focus !== -1) {
       let focusValue = ins.getBoard(focus);
       for (var i = 0; i < 16; i++) {
         let compare = ins.getBoard(i);
@@ -171,7 +164,7 @@ export function Main() {
         }
       }
       ins.sell(focus);
-      for (var i = 0; i < 16; i++) {
+      for (let i = 0; i < 16; i++) {
         board[i] = ins.getBoard(i);
       }
       setBoard([...board]);
@@ -183,7 +176,6 @@ export function Main() {
   }
 
   function restartGame() {
-    //reload the window for now
     window.location.reload();
   }
 
