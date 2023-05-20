@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { FC, useState } from "react";
 import { Container, Form } from "react-bootstrap";
 import { withBrowerWeb3, DelphinusWeb3 } from "web3subscriber/src/client";
 import {
@@ -80,50 +80,45 @@ export function NewProveTask(props: NewWASMImageProps) {
   const addNewProveTask = async function () {
     let task = await prepareNewProveTask();
 
-    dispatch(addProvingTask(task))
-      .unwrap()
-      .then((res) => {
-        setStatus(ModalStatus.PostConfirm);
-      })
-      .catch((err) => {
-        console.log("new prove task error", err);
-        setMessage("Error creating new prove task.");
-        setStatus(ModalStatus.PreConfirm);
-      })
-      .finally(() => {
-        let query = {
-          user_address: account!.address,
-          md5: md5,
-          id: "",
-          tasktype: "Prove",
-          taskstatus: "",
-        };
-        console.log("update", query);
-        dispatch(loadStatus(query));
-      });
+    try {
+      await dispatch(addProvingTask(task)).unwrap();
+
+      setStatus(ModalStatus.PostConfirm);
+    } catch (error) {
+      console.log("new prove task error", error);
+      setMessage("Error creating new prove task.");
+      setStatus(ModalStatus.PreConfirm);
+    }
+
+    const query = {
+      user_address: account!.address,
+      md5,
+      id: "",
+      tasktype: "Prove",
+      taskstatus: "",
+    };
+
+    dispatch(loadStatus(query));
   };
 
-  let content = (
+  const FormGroup: FC<Record<"label" | "value", string>> = ({
+    label,
+    value,
+  }) => (
+    <Form.Group className="mb-3">
+      <Form.Label variant="dark">{label}</Form.Label>
+      <CommonBg>
+        <div className="p-3">{value}</div>
+      </CommonBg>
+    </Form.Group>
+  );
+
+  const content = (
     <>
       <Container>
-        <Form.Group className="mb-3 position-relative">
-          <Form.Label variant="dark">Image ID(MD5):</Form.Label>
-          <CommonBg>
-            <div className="p-3">{md5}</div>
-          </CommonBg>
-        </Form.Group>
-        <Form.Group className="mb-3">
-          <Form.Label variant="dark">Public Inputs:</Form.Label>
-          <CommonBg>
-            <div className="p-3">{inputs}</div>
-          </CommonBg>
-        </Form.Group>
-        <Form.Group className="mb-3">
-          <Form.Label variant="dark">Witness Inputs:</Form.Label>
-          <CommonBg>
-            <div className="p-3">{witness}</div>
-          </CommonBg>
-        </Form.Group>
+        <FormGroup label="Image ID(MD5):" value={md5} />
+        <FormGroup label="Public Inputs:" value={inputs} />
+        <FormGroup label="Witness Inputs:" value={witness} />
       </Container>
     </>
   );

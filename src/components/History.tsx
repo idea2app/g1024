@@ -28,9 +28,7 @@ export default function ImageDetail(props: UserHistoryProps) {
   const tasks = useAppSelector(selectTasks);
 
   useEffect(() => {
-    if (account) {
-      dispatch(loadStatus(query));
-    }
+    dispatch(loadStatus(query));
   }, [account]);
 
   return (
