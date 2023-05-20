@@ -2,8 +2,8 @@ import { useEffect } from "react";
 import { Container, Table } from "react-bootstrap";
 
 import { useAppDispatch, useAppSelector } from "../app/hooks";
-import { loadStatus, selectTasks } from "../data/statusSlice";
 import { selectL1Account } from "../data/accountSlice";
+import { loadStatus, selectTasks } from "../data/statusSlice";
 import { ProofInfoModal } from "../modals/proofInfo";
 
 export interface UserHistoryProps {

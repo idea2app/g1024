@@ -1,18 +1,20 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
+import "./style.scss";
+
+import BN from "bn.js";
 import React from "react";
 import { Container, ListGroup } from "react-bootstrap";
-import { useAppSelector } from "../app/hooks";
-import "./style.scss";
-import { ModalCommon, ModalCommonProps, ModalStatus } from "./base";
-import { Task } from "zkwasm-service-helper";
-import { bytesToBN } from "../utils/proof";
-import { contract_abi, parseArgs } from "../data/image";
-import BN from "bn.js";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
+import { Task } from "zkwasm-service-helper";
+
+import { useAppSelector } from "../app/hooks";
 import { selectL1Account } from "../data/accountSlice";
 import { zkwasmHelper } from "../data/endpoint";
+import { contract_abi, parseArgs } from "../data/image";
 import { Inputs } from "../utils/inputs";
+import { bytesToBN } from "../utils/proof";
+import { ModalCommon, ModalCommonProps, ModalStatus } from "./base";
 
 export interface ProofInfoProps {
   task: Task;

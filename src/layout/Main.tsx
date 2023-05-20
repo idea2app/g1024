@@ -1,24 +1,23 @@
 import 'bootswatch/dist/slate/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
-
 import './style.scss';
 
-import { useEffect, useState } from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
 import { QRCodeSVG } from 'qrcode.react';
+import { useEffect, useState } from 'react';
+import { Col, Container, Row } from 'react-bootstrap';
 
-import { useAppSelector, useAppDispatch } from '../app/hooks';
-import { tasksLoaded } from '../data/statusSlice';
+import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { CurrencyDisplay } from '../components/Currency';
-import initGameInstance from '../js/g1024';
 import History from '../components/History';
-import { NewProveTask } from '../modals/addNewProveTask';
 import { MainNavBar } from '../components/Nav';
+import { tasksLoaded } from '../data/statusSlice';
 import One from '../images/1.png';
 import Two from '../images/2.png';
 import Three from '../images/3.png';
 import Four from '../images/4.png';
 import Control from '../images/control.svg';
+import initGameInstance from '../js/g1024';
+import { NewProveTask } from '../modals/addNewProveTask';
 
 export function Main() {
   const dispatch = useAppDispatch();

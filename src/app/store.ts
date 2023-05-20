@@ -1,8 +1,9 @@
-import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import statusReducer from '../data/statusSlice';
-import dynamicReducer from '../dynamic/dynamicSlice';
+import { Action,configureStore, ThunkAction } from '@reduxjs/toolkit';
+
 import accountReducer from '../data/accountSlice';
 import endpointReducer from "../data/endpoint";
+import statusReducer from '../data/statusSlice';
+import dynamicReducer from '../dynamic/dynamicSlice';
 export const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

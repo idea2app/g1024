@@ -93,7 +93,7 @@ export function parseArg(input: string): Array<BN> | null {
 }
 
 export function parseArgs(raw: Array<string>): Array<BN> {
-    let parsedInputs = new Array();
+    let parsedInputs = [];
     for (var input of raw) {
       input = input.trim();
       if (input!=="") {

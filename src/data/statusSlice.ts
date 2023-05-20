@@ -1,8 +1,8 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import {
   ProvingParams,
-  StatusState,
   QueryParams,
+  StatusState,
   WithSignature,
 } from 'zkwasm-service-helper';
 

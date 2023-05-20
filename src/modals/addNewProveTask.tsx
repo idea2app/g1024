@@ -1,24 +1,24 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
+import "./style.scss";
+
 import React, { useState } from "react";
 import { Container, Form, Spinner } from "react-bootstrap";
+import { DelphinusWeb3,withBrowerWeb3 } from "web3subscriber/src/client";
+import {
+  ProvingParams,
+  WithSignature,
+  ZkWasmUtil,
+} from "zkwasm-service-helper";
+
 import { useAppDispatch, useAppSelector } from "../app/hooks";
+import { loginL1AccountAsync, selectL1Account } from "../data/accountSlice";
+import { addProvingTask, loadStatus, selectTasks } from "../data/statusSlice";
 import {
   ModalCommon,
   ModalCommonProps,
   ModalStatus,
   WaitingForResponseBar,
 } from "./base";
-import { addProvingTask, loadStatus, selectTasks } from "../data/statusSlice";
-import { loginL1AccountAsync, selectL1Account } from "../data/accountSlice";
-import { withBrowerWeb3, DelphinusWeb3 } from "web3subscriber/src/client";
-
-import "./style.scss";
-
-import {
-  ProvingParams,
-  ZkWasmUtil,
-  WithSignature,
-} from "zkwasm-service-helper";
 
 interface NewWASMImageProps {
   md5: string;

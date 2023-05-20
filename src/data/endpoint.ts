@@ -1,5 +1,6 @@
-import { ZkWasmServiceHelper } from "zkwasm-service-helper";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { ZkWasmServiceHelper } from "zkwasm-service-helper";
+
 import { RootState, store } from "../app/store";
 
 export const resturl = "http://129.146.114.145:8080";

@@ -1,5 +1,8 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
+import "./style.scss";
+
 import { useState } from "react";
+import React from "react";
 import {
   Button,
   Container,
@@ -10,9 +13,8 @@ import {
   Modal,
   Spinner,
 } from "react-bootstrap";
+
 import { useAppDispatch, useAppSelector } from "../app/hooks";
-import "./style.scss";
-import React from "react";
 import { selectL1Account } from "../data/accountSlice";
 import { loadStatus } from "../data/statusSlice";
 export interface ModalCommonProps {

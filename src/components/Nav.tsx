@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
 
-import { useAppSelector, useAppDispatch } from "../app/hooks";
+import { useAppDispatch,useAppSelector } from "../app/hooks";
 import { loginL1AccountAsync, selectL1Account } from "../data/accountSlice";
+import logo from "../images/logo.svg";
 import { addressAbbreviation } from "../utils/address";
 import { CurrencyDisplay } from "./Currency";
-import logo from "../images/logo.svg";
 
 interface IProps {
   currency: number;
