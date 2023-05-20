@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { Table, Image } from "react-bootstrap";
 import classNames from "classnames";
 
+import { CommonBg } from "./CommonBg";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
 import { loadStatus, selectTasks } from "../data/statusSlice";
 import { selectL1Account } from "../data/accountSlice";
@@ -33,52 +34,54 @@ export default function ImageDetail(props: UserHistoryProps) {
   }, [account]);
 
   return (
-    <Table className="rounded">
-      <thead>
-        <tr>
-          <th className="ps-lg-5">Task ID</th>
-          <th>Submitted by</th>
-          <th>Status</th>
-          <th>Proof Details</th>
-        </tr>
-      </thead>
-      <tbody>
-        {tasks?.map((task) => {
-          return (
-            <>
-              <tr key={task._id["$oid"]}>
-                <td className="ps-lg-5">
-                  <a
-                    target="_blank"
-                    rel="noreferrer"
-                    href={`https://zkwasm-explorer.delphinuslab.com/image/${task._id["$oid"]}`}
+    <CommonBg>
+      <Table className="rounded">
+        <thead>
+          <tr>
+            <th className="ps-lg-5">Task ID</th>
+            <th>Submitted by</th>
+            <th>Status</th>
+            <th>Proof Details</th>
+          </tr>
+        </thead>
+        <tbody>
+          {tasks?.map((task) => {
+            return (
+              <>
+                <tr key={task._id["$oid"]}>
+                  <td className="ps-lg-5">
+                    <a
+                      target="_blank"
+                      rel="noreferrer"
+                      href={`https://zkwasm-explorer.delphinuslab.com/image/${task._id["$oid"]}`}
+                    >
+                      {shortenString(task._id["$oid"])}
+                    </a>
+                  </td>
+                  <td>
+                    <Image className="me-2" src={User} />
+                    {shortenString(task.user_address)}
+                  </td>
+                  <td
+                    className={classNames({
+                      "text-success": task.status === "Done",
+                    })}
                   >
-                    {shortenString(task._id["$oid"])}
-                  </a>
-                </td>
-                <td>
-                  <Image className="me-2" src={User} />
-                  {shortenString(task.user_address)}
-                </td>
-                <td
-                  className={classNames({
-                    "text-success": task.status === "Done",
-                  })}
-                >
-                  <Image
-                    className="me-2"
-                    src={`/${task.status.toLowerCase()}.png`}
-                  />
-                  <span>{task.status}</span>
-                </td>
-                <td>
-                  <ProofInfoModal task={task} />
-                </td>
-              </tr>
-            </>
-          );
-        })}
-      </tbody>
-    </Table>
+                    <Image
+                      className="me-2"
+                      src={`/${task.status.toLowerCase()}.png`}
+                    />
+                    <span>{task.status}</span>
+                  </td>
+                  <td>
+                    <ProofInfoModal task={task} />
+                  </td>
+                </tr>
+              </>
+            );
+          })}
+        </tbody>
+      </Table>
+    </CommonBg>
   );
 }

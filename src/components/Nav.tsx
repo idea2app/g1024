@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
 
 import { useAppSelector, useAppDispatch } from "../app/hooks";
@@ -17,8 +17,6 @@ export function MainNavBar(props: IProps) {
 
   let account = useAppSelector(selectL1Account);
 
-  const [maxScore, setmaxScore] = useState(6889);
-
   useEffect(() => {
     dispatch(loginL1AccountAsync());
   }, []);
@@ -34,7 +32,7 @@ export function MainNavBar(props: IProps) {
 
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto">
-            <CurrencyDisplay tag="Best Score" value={maxScore} />
+            <CurrencyDisplay tag="Best Score" value={6889} />
             {account && (
               <>
                 <Navbar.Text>

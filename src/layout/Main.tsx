@@ -196,143 +196,142 @@ export function Main() {
   }
 
   return (
-    <>
-      <MainNavBar currency={currency} handleRestart={restartGame}></MainNavBar>
-      <Container className="justify-content-center mb-4">
-        <Row className="justify-content-md-center  m-auto mt-3">
-          <Col className="d-flex justify-content-between align-items-center p-0 game-width">
-            <h2 className="fs-1 fw-bold gradient-content icon-2048">2048</h2>
-            <CurrencyDisplay
-              className="high-score mx-2"
-              tag="Score"
-              value={highscore}
-            ></CurrencyDisplay>
-          </Col>
-        </Row>
-        <Row className="mt-3">
-          <Col>
-            <div className="content">
-              {[...Array(4)].map((_, r) => {
-                return (
-                  <div className="board-row" key={r}>
-                    {[...Array(4)].map((_, c) => {
-                      let index = r * 4 + c;
-                      return (
-                        <div
-                          className={`${cellClass(r * 4 + c)} board-cell-out`}
-                          onClick={() => toggleSelect(index)}
-                          key={index}
-                        >
-                          {index === focus && <div></div>}
-                        </div>
-                      );
-                    })}
-                  </div>
-                );
-              })}
-            </div>
-          </Col>
-        </Row>
-        <div className="text-center">
-          <img src={Control} alt="#" />
-        </div>
-        <Row className="justify-content-center overflow-breakword my-4">
-          <Col sm={7} className="game-inputs py-2">
-            <div>
-              <i
-                className="bi bi-eye me-2 cursor-pointer"
-                onClick={() => setShowInputsAsRaw(!showInputsAsRaw)}
-              ></i>
-              <span>
-                {showInputsAsRaw ? "Show Commands" : "Show Raw Proof Inputs"}
-              </span>
-            </div>
-            {showInputsAsRaw ? (
-              <>
-                <div>{getURI()}</div>
-              </>
-            ) : (
-              <>
-                <div>
-                  {commands.length == 0 && "No inputs made yet!"}
-                  {displayCommandIcons().map((icon) => {
-                    return icon;
+    <Container className="justify-content-center mb-4">
+      <MainNavBar currency={currency} handleRestart={restartGame} />
+
+      <Row className="justify-content-md-center  m-auto mt-3">
+        <Col className="d-flex justify-content-between align-items-center p-0 game-width">
+          <h2 className="fs-1 fw-bold gradient-content icon-2048">2048</h2>
+          <CurrencyDisplay
+            className="high-score mx-2"
+            tag="Score"
+            value={highscore}
+          ></CurrencyDisplay>
+        </Col>
+      </Row>
+
+      <Row className="mt-3">
+        <Col>
+          <div className="content">
+            {[...Array(4)].map((_, r) => {
+              return (
+                <div className="board-row" key={r}>
+                  {[...Array(4)].map((_, c) => {
+                    let index = r * 4 + c;
+                    return (
+                      <div
+                        className={`${cellClass(r * 4 + c)} board-cell-out`}
+                        onClick={() => toggleSelect(index)}
+                        key={index}
+                      >
+                        {index === focus && <div></div>}
+                      </div>
+                    );
                   })}
                 </div>
-              </>
-            )}
-          </Col>
-        </Row>
+              );
+            })}
+          </div>
+        </Col>
+      </Row>
 
-        {commands.length > 0 && (
-          <>
-            <div className="d-flex justify-content-center">
-              <Row className="justify-content-md-center">
-                <Col>
-                  <NewProveTask
-                    md5="77DA9B5A42FABD295FD67CCDBDF2E348"
-                    inputs={`${commands.length}:i64`}
-                    witness={getWitness()}
-                  ></NewProveTask>
-                </Col>
-              </Row>
-            </div>
-          </>
-        )}
+      <div className="text-center">
+        <img src={Control} alt="#" />
+      </div>
 
-        <Row className="justify-content-center">
-          <Col sm={7}>
-            <Row className="pt-4">
-              <Col className="d-flex qr-code">
-                <div>
-                  <QRCodeSVG value={getURI()} />
-                </div>
+      <Row className="justify-content-center overflow-breakword my-4">
+        <Col sm={7} className="game-inputs py-2">
+          <div>
+            <i
+              className="bi bi-eye me-2 cursor-pointer"
+              onClick={() => setShowInputsAsRaw(!showInputsAsRaw)}
+            ></i>
+            <span>
+              {showInputsAsRaw ? "Show Commands" : "Show Raw Proof Inputs"}
+            </span>
+          </div>
+          {showInputsAsRaw ? (
+            <>
+              <div>{getURI()}</div>
+            </>
+          ) : (
+            <>
+              <div>
+                {commands.length == 0 && "No inputs made yet!"}
+                {displayCommandIcons().map((icon) => {
+                  return icon;
+                })}
+              </div>
+            </>
+          )}
+        </Col>
+      </Row>
 
-                <div className="ms-4 qr-msg">
-                  Scan this QR Code to redeem your prize
-                </div>
+      {commands.length > 0 && (
+        <>
+          <div className="d-flex justify-content-center">
+            <Row className="justify-content-md-center">
+              <Col>
+                <NewProveTask
+                  md5="77DA9B5A42FABD295FD67CCDBDF2E348"
+                  inputs={`${commands.length}:i64`}
+                  witness={getWitness()}
+                ></NewProveTask>
               </Col>
             </Row>
-            <Row className="game-info mt-4">
-              <Row>
-                HOW TO PLAY: Use your arrow keys to move the tiles. Each time
-                you move, one currency unit is deducted. When two tiles with the
-                same icon touch, they merge into one tile with same icon they
-                summed to one! When you make the highest tile, you can sell the
-                highest tile for currency.
-              </Row>
-              <Row className="my-4">
-                <div className="d-flex align-items-center justify-content-center">
-                  <img src={One} alt="" className="game-icon" />
-                  <i className="bi bi-plus-lg mx-2"></i>
-                  <img src={One} alt="" className="game-icon" />
-                  <i className="bi bi-arrow-right mx-2"></i>
-                  <img src={Two} alt="" className="game-icon" />
-                  <i className="bi bi-plus-lg mx-2"></i>
-                  <img src={Two} alt="" className="game-icon" />
-                  <i className="bi bi-arrow-right mx-2"></i>
-                  <img src={Three} alt="" className="game-icon" />
-                  <i className="bi bi-plus-lg mx-2"></i>
-                  <img src={Three} alt="" className="game-icon" />
-                  <i className="bi bi-arrow-right mx-2"></i>
-                  <img src={Four} alt="" className="game-icon" />
-                  <i className="bi bi-plus-lg mx-2"></i>
-                  <span>...etc</span>
-                </div>
-              </Row>
-              <Row>
-                Game is based on Saming's 2048 and conceptually similar to
-                Threes by Asher Vollmer.
-              </Row>
+          </div>
+        </>
+      )}
+
+      <Row className="justify-content-center">
+        <Col sm={7}>
+          <Row className="pt-4">
+            <Col className="d-flex qr-code">
+              <div>
+                <QRCodeSVG value={getURI()} />
+              </div>
+
+              <div className="ms-4 qr-msg">
+                Scan this QR Code to redeem your prize
+              </div>
+            </Col>
+          </Row>
+          <Row className="game-info mt-4">
+            <Row>
+              HOW TO PLAY: Use your arrow keys to move the tiles. Each time you
+              move, one currency unit is deducted. When two tiles with the same
+              icon touch, they merge into one tile with same icon they summed to
+              one! When you make the highest tile, you can sell the highest tile
+              for currency.
             </Row>
-          </Col>
-        </Row>
-      </Container>
-      <Container>
-        <div className="common-card-bg-box">
-          <History md5="77DA9B5A42FABD295FD67CCDBDF2E348"></History>
-        </div>
-      </Container>
-    </>
+            <Row className="my-4">
+              <div className="d-flex align-items-center justify-content-center">
+                <img src={One} alt="" className="game-icon" />
+                <i className="bi bi-plus-lg mx-2"></i>
+                <img src={One} alt="" className="game-icon" />
+                <i className="bi bi-arrow-right mx-2"></i>
+                <img src={Two} alt="" className="game-icon" />
+                <i className="bi bi-plus-lg mx-2"></i>
+                <img src={Two} alt="" className="game-icon" />
+                <i className="bi bi-arrow-right mx-2"></i>
+                <img src={Three} alt="" className="game-icon" />
+                <i className="bi bi-plus-lg mx-2"></i>
+                <img src={Three} alt="" className="game-icon" />
+                <i className="bi bi-arrow-right mx-2"></i>
+                <img src={Four} alt="" className="game-icon" />
+                <i className="bi bi-plus-lg mx-2"></i>
+                <span>...etc</span>
+              </div>
+            </Row>
+            <Row>
+              Game is based on Saming's 2048 and conceptually similar to Threes
+              by Asher Vollmer.
+            </Row>
+          </Row>
+        </Col>
+      </Row>
+
+      <History md5="77DA9B5A42FABD295FD67CCDBDF2E348" />
+    </Container>
   );
 }
