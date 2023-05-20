@@ -45,24 +45,22 @@ export default function ImageDetail(props: UserHistoryProps) {
         </thead>
         <tbody>
           {tasks?.[0] &&
-            tasks.map((d) => {
-              return (
-                <tr key={d._id["$oid"]}>
-                  <td>
-                    <span>{d._id["$oid"]}</span>
-                  </td>
-                  <td>
-                    <span>{d.user_address}</span>
-                  </td>
-                  <td>
-                    <span>{d.status}</span>
-                  </td>
-                  <td>
-                    <ProofInfoModal task={d}></ProofInfoModal>
-                  </td>
-                </tr>
-              );
-            })}
+            tasks.map((d) => (
+              <tr key={d._id["$oid"]}>
+                <td>
+                  <span>{d._id["$oid"]}</span>
+                </td>
+                <td>
+                  <span>{d.user_address}</span>
+                </td>
+                <td>
+                  <span>{d.status}</span>
+                </td>
+                <td>
+                  <ProofInfoModal task={d}></ProofInfoModal>
+                </td>
+              </tr>
+            ))}
         </tbody>
       </Table>
     </Container>
