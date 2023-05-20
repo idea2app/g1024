@@ -1,10 +1,13 @@
 import React, { useEffect } from "react";
-import { Table } from "react-bootstrap";
+import { Image, Table } from "react-bootstrap";
+import classNames from "classnames";
 
 import { useAppDispatch, useAppSelector } from "../app/hooks";
 import { loadStatus, selectTasks } from "../data/statusSlice";
 import { selectL1Account } from "../data/accountSlice";
 import { ProofInfoModal } from "../modals/proofInfo";
+import { shortenString } from "../utils/string";
+import User from "../images/people.svg";
 
 export interface UserHistoryProps {
   md5: string;
@@ -25,7 +28,6 @@ export default function ImageDetail(props: UserHistoryProps) {
   const [loading, setLoading] = React.useState<boolean>(false);
   const [error, setError] = React.useState<string | null>(null);
 
-  dispatch(loadStatus(query));
   let tasks = useAppSelector(selectTasks);
 
   useEffect(() => {
@@ -38,7 +40,7 @@ export default function ImageDetail(props: UserHistoryProps) {
     <Table className="rounded">
       <thead>
         <tr>
-          <th>Task ID</th>
+          <th className="ps-lg-5">Task ID</th>
           <th>Submitted by</th>
           <th>Status</th>
           <th>Proof Details</th>
@@ -49,13 +51,28 @@ export default function ImageDetail(props: UserHistoryProps) {
           return (
             <>
               <tr key={d._id["$oid"]}>
-                <td>
-                  <span>{d._id["$oid"]}</span>
+                <td className="ps-lg-5">
+                  <a
+                    target="_blank"
+                    rel="noreferrer"
+                    href={`https://zkwasm-explorer.delphinuslab.com/image/${d._id["$oid"]}`}
+                  >
+                    {shortenString(d._id["$oid"])}
+                  </a>
                 </td>
                 <td>
-                  <span>{d.user_address}</span>
+                  <Image className="me-2" src={User} />
+                  {shortenString(d.user_address)}
                 </td>
-                <td>
+                <td
+                  className={classNames({
+                    "text-success": d.status === "Done",
+                  })}
+                >
+                  <Image
+                    className="me-2"
+                    src={`/${d.status.toLowerCase()}.png`}
+                  />
                   <span>{d.status}</span>
                 </td>
                 <td>
