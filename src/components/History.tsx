@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../app/hooks";
-import { Card, Container, Row, Col, Table, Spinner } from "react-bootstrap";
-import { loadStatus, selectTasks } from "../data/statusSlice";
-import { ProofInfoModal } from "../modals/proofInfo";
+import { useEffect } from "react";
+import { Container, Table } from "react-bootstrap";
 
+import { useAppDispatch, useAppSelector } from "../app/hooks";
+import { loadStatus, selectTasks } from "../data/statusSlice";
 import { selectL1Account } from "../data/accountSlice";
+import { ProofInfoModal } from "../modals/proofInfo";
 
 export interface UserHistoryProps {
   md5: string;
@@ -12,7 +12,7 @@ export interface UserHistoryProps {
 
 export default function ImageDetail(props: UserHistoryProps) {
   const dispatch = useAppDispatch();
-  let account = useAppSelector(selectL1Account);
+  const account = useAppSelector(selectL1Account);
   const query = {
     md5: props.md5,
     user_address: account?.address || "",
@@ -21,10 +21,7 @@ export default function ImageDetail(props: UserHistoryProps) {
     taskstatus: "",
   };
 
-  // UI Loading states
-  const [loading, setLoading] = React.useState<boolean>(false);
-  const [error, setError] = React.useState<string | null>(null);
-  let tasks = useAppSelector(selectTasks);
+  const tasks = useAppSelector(selectTasks);
 
   useEffect(() => {
     if (account) {
@@ -44,23 +41,22 @@ export default function ImageDetail(props: UserHistoryProps) {
           </tr>
         </thead>
         <tbody>
-          {tasks?.[0] &&
-            tasks.map((task) => (
-              <tr key={task._id["$oid"]}>
-                <td>
-                  <span>{task._id["$oid"]}</span>
-                </td>
-                <td>
-                  <span>{task.user_address}</span>
-                </td>
-                <td>
-                  <span>{task.status}</span>
-                </td>
-                <td>
-                  <ProofInfoModal task={task}></ProofInfoModal>
-                </td>
-              </tr>
-            ))}
+          {tasks?.map((task) => (
+            <tr key={task._id["$oid"]}>
+              <td>
+                <span>{task._id["$oid"]}</span>
+              </td>
+              <td>
+                <span>{task.user_address}</span>
+              </td>
+              <td>
+                <span>{task.status}</span>
+              </td>
+              <td>
+                <ProofInfoModal task={task} />
+              </td>
+            </tr>
+          ))}
         </tbody>
       </Table>
     </Container>
