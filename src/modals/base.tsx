@@ -1,22 +1,12 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import "./style.scss";
+import './style.scss';
 
-import { useState } from "react";
-import React from "react";
-import {
-  Button,
-  Container,
-  FloatingLabel,
-  Form,
-  FormLabel,
-  ListGroup,
-  Modal,
-  Spinner,
-} from "react-bootstrap";
+import { useState } from 'react';
+import React from 'react';
+import { Button, Modal, Spinner } from 'react-bootstrap';
 
-import { useAppDispatch, useAppSelector } from "../app/hooks";
-import { selectL1Account } from "../data/accountSlice";
-import { loadStatus } from "../data/statusSlice";
+import { useAppSelector } from '../app/hooks';
+import { selectL1Account } from '../data/accountSlice';
+
 export interface ModalCommonProps {
   btnLabel: React.ReactNode;
   title: string;

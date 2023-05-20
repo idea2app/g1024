@@ -1,10 +1,10 @@
-import { useEffect } from "react";
-import { Container, Table } from "react-bootstrap";
+import { useEffect } from 'react';
+import { Container, Table } from 'react-bootstrap';
 
-import { useAppDispatch, useAppSelector } from "../app/hooks";
-import { selectL1Account } from "../data/accountSlice";
-import { loadStatus, selectTasks } from "../data/statusSlice";
-import { ProofInfoModal } from "../modals/proofInfo";
+import { useAppDispatch, useAppSelector } from '../app/hooks';
+import { selectL1Account } from '../data/accountSlice';
+import { loadStatus, selectTasks } from '../data/statusSlice';
+import { ProofInfoModal } from '../modals/proofInfo';
 
 export interface UserHistoryProps {
   md5: string;
@@ -15,10 +15,10 @@ export default function ImageDetail(props: UserHistoryProps) {
   const account = useAppSelector(selectL1Account);
   const query = {
     md5: props.md5,
-    user_address: account?.address || "",
-    id: "",
-    tasktype: "Prove",
-    taskstatus: "",
+    user_address: account?.address || '',
+    id: '',
+    tasktype: 'Prove',
+    taskstatus: '',
   };
 
   const tasks = useAppSelector(selectTasks);
@@ -41,10 +41,10 @@ export default function ImageDetail(props: UserHistoryProps) {
           </tr>
         </thead>
         <tbody>
-          {tasks?.map((task) => (
-            <tr key={task._id["$oid"]}>
+          {tasks?.map(task => (
+            <tr key={task._id['$oid']}>
               <td>
-                <span>{task._id["$oid"]}</span>
+                <span>{task._id['$oid']}</span>
               </td>
               <td>
                 <span>{task.user_address}</span>

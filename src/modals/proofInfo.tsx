@@ -1,20 +1,20 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import "./style.scss";
+import './style.scss';
 
-import BN from "bn.js";
-import React from "react";
-import { Container, ListGroup } from "react-bootstrap";
-import Tab from "react-bootstrap/Tab";
-import Tabs from "react-bootstrap/Tabs";
-import { Task } from "zkwasm-service-helper";
+import BN from 'bn.js';
+import React from 'react';
+import { Container, ListGroup } from 'react-bootstrap';
+import Tab from 'react-bootstrap/Tab';
+import Tabs from 'react-bootstrap/Tabs';
+import { Task } from 'zkwasm-service-helper';
 
-import { useAppSelector } from "../app/hooks";
-import { selectL1Account } from "../data/accountSlice";
-import { zkwasmHelper } from "../data/endpoint";
-import { contract_abi, parseArgs } from "../data/image";
-import { Inputs } from "../utils/inputs";
-import { bytesToBN } from "../utils/proof";
-import { ModalCommon, ModalCommonProps, ModalStatus } from "./base";
+import { useAppSelector } from '../app/hooks';
+import { selectL1Account } from '../data/accountSlice';
+import { zkwasmHelper } from '../data/endpoint';
+import { contract_abi, parseArgs } from '../data/image';
+import { Inputs } from '../utils/inputs';
+import { bytesToBN } from '../utils/proof';
+import { ModalCommon, ModalCommonProps, ModalStatus } from './base';
 
 export interface ProofInfoProps {
   task: Task;
@@ -35,16 +35,16 @@ export function ProofInfoModal(info: ProofInfoProps) {
         let verify_contract = new web3.eth.Contract(contract_abi.abi, address, {
           from: account!.address,
         });
-        let args = parseArgs(task.public_inputs).map((x) => x.toString(10));
-        console.log("args are:", args);
+        let args = parseArgs(task.public_inputs).map(x => x.toString(10));
+        console.log('args are:', args);
         let result = await verify_contract.methods
           .verify(aggregate_proof, instances, aux, [args])
           .send();
-        console.log("verification result:", result.toString());
+        console.log('verification result:', result.toString());
       }
       let address = image.deployment;
     } else {
-      console.error("wallet not connected");
+      console.error('wallet not connected');
     }
   }
   let taskproof = (
@@ -62,8 +62,8 @@ export function ProofInfoModal(info: ProofInfoProps) {
           <Tab eventKey="Instances" title="Instances">
             {instances.map((proof: BN) => {
               return (
-                <ListGroup.Item key={proof.toString("hex")}>
-                  0x{proof.toString("hex")}
+                <ListGroup.Item key={proof.toString('hex')}>
+                  0x{proof.toString('hex')}
                 </ListGroup.Item>
               );
             })}
@@ -72,8 +72,8 @@ export function ProofInfoModal(info: ProofInfoProps) {
             <div className="scroll-300">
               {aggregate_proof.map((proof: BN) => {
                 return (
-                  <ListGroup.Item key={proof.toString("hex")}>
-                    0x{proof.toString("hex")}
+                  <ListGroup.Item key={proof.toString('hex')}>
+                    0x{proof.toString('hex')}
                   </ListGroup.Item>
                 );
               })}
@@ -82,8 +82,8 @@ export function ProofInfoModal(info: ProofInfoProps) {
           <Tab eventKey="auxdata" title="Aux Data">
             {aux.map((proof: BN) => {
               return (
-                <ListGroup.Item key={proof.toString("hex")}>
-                  0x{proof.toString("hex")}
+                <ListGroup.Item key={proof.toString('hex')}>
+                  0x{proof.toString('hex')}
                 </ListGroup.Item>
               );
             })}
@@ -94,16 +94,16 @@ export function ProofInfoModal(info: ProofInfoProps) {
   );
   let props: ModalCommonProps = {
     btnLabel: <i className="bi bi-eye cursor-pointer"></i>,
-    title: "Proof Information",
-    childrenClass: "",
+    title: 'Proof Information',
+    childrenClass: '',
     handleConfirm: function (): void {
       testverify();
     },
     valid: true,
     status: ModalStatus.PreConfirm,
     children: taskproof,
-    message: "",
-    confirmLabel: "verify on chain",
+    message: '',
+    confirmLabel: 'verify on chain',
   };
   return ModalCommon(props);
 }

@@ -1,19 +1,19 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { ZkWasmServiceHelper } from "zkwasm-service-helper";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { ZkWasmServiceHelper } from 'zkwasm-service-helper';
 
-import { RootState, store } from "../app/store";
+import { RootState, store } from '../app/store';
 
-export const resturl = "http://129.146.114.145:8080";
-export const zkwasmHelper = new ZkWasmServiceHelper(resturl, "", "");
+export const resturl = 'http://129.146.114.145:8080';
+export const zkwasmHelper = new ZkWasmServiceHelper(resturl, '', '');
 export interface Endpoint {
   url: string;
   nickname: string;
 }
 
-export const storageKey = "customURLs";
+export const storageKey = 'customURLs';
 export const defaultEndpoint: Endpoint = {
   url: resturl,
-  nickname: "Default",
+  nickname: 'Default',
 };
 function customEndpoints() {
   //Get custom endpoint array from local storage
@@ -25,9 +25,9 @@ function customEndpoints() {
 }
 
 function getLastUsedEndpoint() {
-  let endpoint = localStorage.getItem("lastUsedEndpoint");
+  let endpoint = localStorage.getItem('lastUsedEndpoint');
   if (endpoint) {
-    console.log("last used endpoint: " + endpoint + "");
+    console.log('last used endpoint: ' + endpoint + '');
     return JSON.parse(endpoint) as Endpoint;
   }
   return defaultEndpoint;
@@ -40,25 +40,25 @@ const initialState: {
 } = {
   zkWasmServiceHelper: new ZkWasmServiceHelper(
     getLastUsedEndpoint().url,
-    "",
-    ""
+    '',
+    '',
   ),
   currentEndpoint: getLastUsedEndpoint(),
   endpointList: [...customEndpoints()],
 };
 
 export const endpointSlice = createSlice({
-  name: "endpoint",
+  name: 'endpoint',
   initialState,
   reducers: {
     updateCurrentEndpoint: (state, d: PayloadAction<Endpoint>) => {
       //add updated array to local storage
-      localStorage.setItem("lastUsedEndpoint", JSON.stringify(d.payload));
+      localStorage.setItem('lastUsedEndpoint', JSON.stringify(d.payload));
       state.currentEndpoint = d.payload;
       state.zkWasmServiceHelper = new ZkWasmServiceHelper(
         d.payload.url,
-        "",
-        ""
+        '',
+        '',
       );
     },
     setEndpointList: (state, d) => {

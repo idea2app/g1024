@@ -1,22 +1,23 @@
-import { Action,configureStore, ThunkAction } from '@reduxjs/toolkit';
+import { Action, configureStore, ThunkAction } from '@reduxjs/toolkit';
 
 import accountReducer from '../data/accountSlice';
-import endpointReducer from "../data/endpoint";
+import endpointReducer from '../data/endpoint';
 import statusReducer from '../data/statusSlice';
 import dynamicReducer from '../dynamic/dynamicSlice';
+
 export const store = configureStore({
-  middleware: (getDefaultMiddleware) =>
+  middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
       serializableCheck: {
-        /*
-        ignoredActions: ['XXX/XXXX'],
-        */
-        ignoredActionPaths: ['payload.web3','payload.seed', 'payload.injector'],
-
+        ignoredActionPaths: [
+          'payload.web3',
+          'payload.seed',
+          'payload.injector',
+        ],
         ignoredPaths: [
-          "acccount/fetchAccount/fulfilled",
-          "account.l1Account.web3",
-          "endpoint.zkWasmServiceHelper",
+          'acccount/fetchAccount/fulfilled',
+          'account.l1Account.web3',
+          'endpoint.zkWasmServiceHelper',
         ],
       },
     }),
