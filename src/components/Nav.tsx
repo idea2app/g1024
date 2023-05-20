@@ -4,8 +4,8 @@ import { Container, Nav, Navbar } from "react-bootstrap";
 import { useAppSelector, useAppDispatch } from "../app/hooks";
 import { loginL1AccountAsync, selectL1Account } from "../data/accountSlice";
 import { addressAbbreviation } from "../utils/address";
+import { CurrencyDisplay } from "./Currency";
 import logo from "../images/logo.svg";
-import CurrencyDisplay from "./Currency";
 
 interface IProps {
   currency: number;
@@ -46,8 +46,8 @@ export function MainNavBar(props: IProps) {
             {!account && (
               <>
                 <button
-                  onClick={() => dispatch(loginL1AccountAsync())}
                   className="appearance-none rounded-pill border-0 fs-5 fw-semibold ms-4 ms-xl-0 text-black connect"
+                  onClick={() => dispatch(loginL1AccountAsync())}
                 >
                   Connect Wallet
                 </button>

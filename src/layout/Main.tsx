@@ -9,7 +9,7 @@ import { QRCodeSVG } from "qrcode.react";
 
 import { useAppSelector, useAppDispatch } from "../app/hooks";
 import { tasksLoaded } from "../data/statusSlice";
-import CurrencyDisplay from "../components/Currency";
+import { CurrencyDisplay } from "../components/Currency";
 import initGameInstance from "../js/g1024";
 import History from "../components/History";
 import { NewProveTask } from "../modals/addNewProveTask";

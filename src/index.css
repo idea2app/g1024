@@ -1,13 +1,5 @@
-:root {
-  --font-family-base: "Chakra Petch", sans-serif;
-}
-
 body {
   margin: 0;
-  /* font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif; */
-  font-family: var(--font-family-base);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: var(--bg-black) !important;
@@ -22,6 +14,7 @@ code {
 #root,
 body,
 html {
+  --bs-body-font-family: "Chakra Petch", sans-serif;
   --bg-blue: #405461;
   --bg-black: #05050f;
   --navbar-bg: #32414b;
