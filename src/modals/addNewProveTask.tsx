@@ -21,22 +21,21 @@ interface NewWASMImageProps {
 }
 
 export async function signMessage(message: string) {
-  let signature = await withBrowerWeb3(async (web3: DelphinusWeb3) => {
-    let provider = web3.web3Instance.currentProvider;
+  const signature = await withBrowerWeb3(async (web3: DelphinusWeb3) => {
+    const provider = web3.web3Instance.currentProvider;
     if (!provider) {
       throw new Error("No provider found!");
     }
-    const accounts = await web3.web3Instance.eth.getAccounts();
-    const account = accounts[0];
+    const [account] = await web3.web3Instance.eth.getAccounts();
     const msg = web3.web3Instance.utils.utf8ToHex(message);
-    const msgParams = [msg, account];
-    //TODO: type this properly
     const sig = await (provider as any).request({
       method: "personal_sign",
-      params: msgParams,
+      params: [msg, account],
     });
+
     return sig;
   });
+
   return signature;
 }
 
@@ -72,7 +71,7 @@ export function NewProveTask(props: NewWASMImageProps) {
 
     const task: WithSignature<ProvingParams> = {
       ...info,
-      signature: signature,
+      signature,
     };
 
     return task;

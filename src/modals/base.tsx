@@ -1,24 +1,14 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { useState } from "react";
-import {
-  Button,
-  Container,
-  FloatingLabel,
-  Form,
-  FormLabel,
-  ListGroup,
-  Modal,
-  Spinner,
-} from "react-bootstrap";
-import { useAppDispatch, useAppSelector } from "../app/hooks";
-import "./style.scss";
-import React from "react";
+import { ReactNode, useState } from "react";
+import { Button, Modal, Spinner } from "react-bootstrap";
+
+import { useAppSelector } from "../app/hooks";
 import { selectL1Account } from "../data/accountSlice";
-import { loadStatus } from "../data/statusSlice";
+import "./style.scss";
+
 export interface ModalCommonProps {
-  btnLabel: React.ReactNode;
+  btnLabel: ReactNode;
   title: string[];
-  children?: React.ReactNode;
+  children?: ReactNode;
   childrenClass: string;
   valid: boolean;
   handleConfirm?: () => void;
@@ -26,7 +16,7 @@ export interface ModalCommonProps {
   handleClose?: () => void;
   message: string;
   status: ModalStatus;
-  confirmLabel?: React.ReactNode;
+  confirmLabel?: ReactNode;
 }
 
 export enum ModalStatus {
@@ -36,10 +26,20 @@ export enum ModalStatus {
   Error,
 }
 
-export function ModalCommon(props: ModalCommonProps) {
+export function ModalCommon({
+  btnLabel,
+  title,
+  children,
+  valid,
+  message,
+  status,
+  confirmLabel,
+  handleConfirm,
+  ...props
+}: ModalCommonProps) {
   const [show, setShow] = useState(false);
 
-  let account = useAppSelector(selectL1Account);
+  const account = useAppSelector(selectL1Account);
   const handleClose = () => {
     if (props.handleClose) {
       props.handleClose();
@@ -53,19 +53,17 @@ export function ModalCommon(props: ModalCommonProps) {
     setShow(true);
   };
 
-  const Message = () => {
-    if (account?.address === undefined) {
-      return (
-        <div>Please connect your wallet before submitting any requests!</div>
-      );
-    }
-    return <div className="modal-error-msg">{props.message}</div>;
-  };
+  const Message = () =>
+    account?.address ? (
+      <div className="modal-error-msg">{message}</div>
+    ) : (
+      <div>Please connect your wallet before submitting any requests!</div>
+    );
 
   return (
     <>
       <div className="modal-btn" onClick={handleShow}>
-        {props.btnLabel}
+        {btnLabel}
       </div>
       <Modal
         show={show}
@@ -78,8 +76,8 @@ export function ModalCommon(props: ModalCommonProps) {
         <div className="common-card-bg-box">
           <Modal.Header>
             <Modal.Title className="w-100 text-center fs-3">
-              <span className="gradient-content">{props.title[0]}</span>
-              <span>{props.title[1]}</span>
+              <span className="gradient-content">{title[0]}</span>
+              <span>{title[1]}</span>
             </Modal.Title>
             <button
               type="button"
@@ -89,19 +87,17 @@ export function ModalCommon(props: ModalCommonProps) {
               onClick={handleClose}
             />
           </Modal.Header>
-          <Modal.Body className="show-grid">{props.children}</Modal.Body>
+          <Modal.Body className="show-grid">{children}</Modal.Body>
           <Modal.Footer className="flex-column">
-            <Message></Message>
+            <Message />
 
-            {props.handleConfirm && props.status === ModalStatus.PreConfirm && (
+            {handleConfirm && status === ModalStatus.PreConfirm && (
               <Button
                 variant="primary"
-                disabled={
-                  props.valid !== true || account?.address === undefined
-                }
-                onClick={props.handleConfirm}
+                disabled={!valid || !account?.address}
+                onClick={handleConfirm}
               >
-                {props.confirmLabel}
+                {confirmLabel}
               </Button>
             )}
             <WaitingForResponseBar></WaitingForResponseBar>
