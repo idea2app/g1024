@@ -1,11 +1,10 @@
-import { FC, ReactNode } from "react";
+import { FC } from "react";
 import { ButtonProps } from "react-bootstrap";
 import classNmaes from "classnames";
 
-interface CommonButtonProps extends Pick<ButtonProps, "onClick"> {
+interface CommonButtonProps
+  extends Pick<ButtonProps, "className" | "children" | "onClick"> {
   border?: boolean;
-  className?: string;
-  children?: ReactNode;
 }
 
 export const CommonButton: FC<CommonButtonProps> = ({

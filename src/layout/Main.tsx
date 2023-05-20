@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { useAppSelector, useAppDispatch } from "../app/hooks";
 import { tasksLoaded } from "../data/statusSlice";
 import Row from "react-bootstrap/Row";
@@ -244,7 +244,7 @@ export function Main() {
               md5="77DA9B5A42FABD295FD67CCDBDF2E348"
               inputs={`${commands.length}:i64`}
               witness={getWitness()}
-            ></NewProveTask>
+            />
           </div>
         </div>
 
@@ -256,7 +256,7 @@ export function Main() {
                   <i
                     className="bi bi-eye me-2 cursor-pointer"
                     onClick={() => setShowInputsAsRaw(!showInputsAsRaw)}
-                  ></i>
+                  />
                   <span>
                     {showInputsAsRaw
                       ? "Show Commands"
@@ -269,10 +269,8 @@ export function Main() {
                   <div>{getURI()}</div>
                 ) : (
                   <div>
-                    {commands.length == 0 && "No inputs made yet!"}
-                    {displayCommandIcons().map((icon) => {
-                      return icon;
-                    })}
+                    {!commands.length && "No inputs made yet!"}
+                    {displayCommandIcons()}
                   </div>
                 )}
               </Col>
@@ -291,17 +289,17 @@ export function Main() {
               currency.
             </p>
             <div className="d-flex align-items-center justify-content-center my-3">
-              {[One, Two, Three, Four].map((src, index) => (
-                <>
+              {[One, Two, Three, Four].map((src, index, { length }) => (
+                <Fragment key={src}>
                   <img src={src} alt="#" className="game-icon" />
-                  {index !== 3 && (
+                  {index + 1 < length && (
                     <>
                       <span className="mx-2">+</span>
                       <img src={src} alt="#" className="game-icon" />
                       <span className="mx-2">=</span>
                     </>
                   )}
-                </>
+                </Fragment>
               ))}
               <span className="ms-2">...</span>
             </div>

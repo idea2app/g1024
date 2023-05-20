@@ -35,7 +35,7 @@ html {
   background-clip: padding-box;
 
   .border-content {
-    border-radius: 16px;
+    border-radius: 1rem;
     background: linear-gradient(
       180deg,
       rgba(32, 49, 75, 0.5) 0%,
@@ -62,7 +62,7 @@ html {
 }
 
 .container-max {
-  max-width: 560px !important;
+  max-width: 35rem !important;
 }
 
 .bg-gradient-blue {
