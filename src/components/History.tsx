@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { Image, Table } from "react-bootstrap";
+import { useEffect } from "react";
+import { Table, Image } from "react-bootstrap";
 import classNames from "classnames";
 
 import { useAppDispatch, useAppSelector } from "../app/hooks";
@@ -15,24 +15,20 @@ export interface UserHistoryProps {
 
 export default function ImageDetail(props: UserHistoryProps) {
   const dispatch = useAppDispatch();
-  let account = useAppSelector(selectL1Account);
+  const account = useAppSelector(selectL1Account);
   const query = {
     md5: props.md5,
-    user_address: account ? account!.address : "",
+    user_address: account?.address || "",
     id: "",
     tasktype: "Prove",
     taskstatus: "",
   };
 
-  // UI Loading states
-  const [loading, setLoading] = React.useState<boolean>(false);
-  const [error, setError] = React.useState<string | null>(null);
-
-  let tasks = useAppSelector(selectTasks);
+  const tasks = useAppSelector(selectTasks);
 
   useEffect(() => {
     // if (account) {
-      dispatch(loadStatus(query));
+    dispatch(loadStatus(query));
     // }
   }, [account]);
 
@@ -47,36 +43,36 @@ export default function ImageDetail(props: UserHistoryProps) {
         </tr>
       </thead>
       <tbody>
-        {tasks?.map((d) => {
+        {tasks?.map((task) => {
           return (
             <>
-              <tr key={d._id["$oid"]}>
+              <tr key={task._id["$oid"]}>
                 <td className="ps-lg-5">
                   <a
                     target="_blank"
                     rel="noreferrer"
-                    href={`https://zkwasm-explorer.delphinuslab.com/image/${d._id["$oid"]}`}
+                    href={`https://zkwasm-explorer.delphinuslab.com/image/${task._id["$oid"]}`}
                   >
-                    {shortenString(d._id["$oid"])}
+                    {shortenString(task._id["$oid"])}
                   </a>
                 </td>
                 <td>
                   <Image className="me-2" src={User} />
-                  {shortenString(d.user_address)}
+                  {shortenString(task.user_address)}
                 </td>
                 <td
                   className={classNames({
-                    "text-success": d.status === "Done",
+                    "text-success": task.status === "Done",
                   })}
                 >
                   <Image
                     className="me-2"
-                    src={`/${d.status.toLowerCase()}.png`}
+                    src={`/${task.status.toLowerCase()}.png`}
                   />
-                  <span>{d.status}</span>
+                  <span>{task.status}</span>
                 </td>
                 <td>
-                  <ProofInfoModal task={d}></ProofInfoModal>
+                  <ProofInfoModal task={task} />
                 </td>
               </tr>
             </>

@@ -1,12 +1,12 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-
-import { RootState } from "../app/store";
 import {
   ProvingParams,
   StatusState,
   QueryParams,
   WithSignature,
 } from "zkwasm-service-helper";
+
+import { RootState } from "../app/store";
 
 const initialState: StatusState = {
   tasks: [],
@@ -22,20 +22,19 @@ const initialState: StatusState = {
 export const loadStatus = createAsyncThunk(
   "status/fetchStatus",
   async (query: QueryParams, thunkApi) => {
-    let state = thunkApi.getState() as RootState;
-    let helper = state.endpoint.zkWasmServiceHelper;
-    let tasks = (await helper.loadTasks(query)).data;
-    return tasks;
+    const { endpoint } = thunkApi.getState() as RootState;
+    const { data } = await endpoint.zkWasmServiceHelper.loadTasks(query);
+
+    return data;
   }
 );
 
 export const addProvingTask = createAsyncThunk(
   "status/addProveTask",
-  async (task: WithSignature<ProvingParams>, thunkApi) => {
-    let state = thunkApi.getState() as RootState;
-    let helper = state.endpoint.zkWasmServiceHelper;
-    let response = await helper.addProvingTask(task);
-    return response;
+  (task: WithSignature<ProvingParams>, thunkApi) => {
+    const { endpoint } = thunkApi.getState() as RootState;
+
+    return endpoint.zkWasmServiceHelper.addProvingTask(task);
   }
 );
 
