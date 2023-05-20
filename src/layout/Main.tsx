@@ -1,24 +1,24 @@
-import "bootswatch/dist/slate/bootstrap.min.css";
-import "bootstrap-icons/font/bootstrap-icons.css";
+import 'bootswatch/dist/slate/bootstrap.min.css';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 
-import "./style.scss";
+import './style.scss';
 
-import { useEffect, useState } from "react";
-import { Container, Row, Col } from "react-bootstrap";
-import { QRCodeSVG } from "qrcode.react";
+import { useEffect, useState } from 'react';
+import { Container, Row, Col } from 'react-bootstrap';
+import { QRCodeSVG } from 'qrcode.react';
 
-import { useAppSelector, useAppDispatch } from "../app/hooks";
-import { tasksLoaded } from "../data/statusSlice";
-import { CurrencyDisplay } from "../components/Currency";
-import initGameInstance from "../js/g1024";
-import History from "../components/History";
-import { NewProveTask } from "../modals/addNewProveTask";
-import { MainNavBar } from "../components/Nav";
-import One from "../images/1.png";
-import Two from "../images/2.png";
-import Three from "../images/3.png";
-import Four from "../images/4.png";
-import Control from "../images/control.svg";
+import { useAppSelector, useAppDispatch } from '../app/hooks';
+import { tasksLoaded } from '../data/statusSlice';
+import { CurrencyDisplay } from '../components/Currency';
+import initGameInstance from '../js/g1024';
+import History from '../components/History';
+import { NewProveTask } from '../modals/addNewProveTask';
+import { MainNavBar } from '../components/Nav';
+import One from '../images/1.png';
+import Two from '../images/2.png';
+import Three from '../images/3.png';
+import Four from '../images/4.png';
+import Control from '../images/control.svg';
 
 export function Main() {
   const dispatch = useAppDispatch();
@@ -29,26 +29,26 @@ export function Main() {
   const [currency, setCurrency] = useState(20);
   const [commands, setCommands] = useState<Array<number>>([]);
   const [highscore, setHighscore] = useState(20);
-  const [submitURI, setSubmitURI] = useState("");
+  const [submitURI, setSubmitURI] = useState('');
 
   const [showInputsAsRaw, setShowInputsAsRaw] = useState(false);
   let ready = useAppSelector(tasksLoaded);
 
   function appendCommand(cmds: Array<number>) {
-    setCommands((commands) => {
+    setCommands(commands => {
       return [...commands.concat(cmds)];
     });
   }
 
   function arrowFunction(event: KeyboardEvent) {
     event.preventDefault();
-    if (event.key === "ArrowUp" || event.key === "w") {
+    if (event.key === 'ArrowUp' || event.key === 'w') {
       step(0);
-    } else if (event.key == "ArrowLeft" || event.key === "a") {
+    } else if (event.key == 'ArrowLeft' || event.key === 'a') {
       step(1);
-    } else if (event.key == "ArrowDown" || event.key === "s") {
+    } else if (event.key == 'ArrowDown' || event.key === 's') {
       step(2);
-    } else if (event.key == "ArrowRight" || event.key === "d") {
+    } else if (event.key == 'ArrowRight' || event.key === 'd') {
       step(3);
     }
   }
@@ -62,9 +62,9 @@ export function Main() {
       //ins.setCurrency(40);
       setCurrency(ins.getCurrency());
     });
-    document.addEventListener("keydown", arrowFunction, false);
+    document.addEventListener('keydown', arrowFunction, false);
     return () => {
-      document.removeEventListener("keydown", arrowFunction, false);
+      document.removeEventListener('keydown', arrowFunction, false);
     };
   }, []);
 
@@ -76,18 +76,18 @@ export function Main() {
   function getWitness() {
     let wit = `0x`;
     for (var c of commands) {
-      wit = wit + "0" + c.toString(16);
+      wit = wit + '0' + c.toString(16);
     }
-    wit = wit + ":bytes-packed";
+    wit = wit + ':bytes-packed';
     return wit;
   }
 
   function getURI() {
     let uri = `${commands.length}:i64-0x`;
     for (var c of commands) {
-      uri = uri + "0" + c.toString(16);
+      uri = uri + '0' + c.toString(16);
     }
-    uri = uri + ":bytes-packed";
+    uri = uri + ':bytes-packed';
     return uri;
   }
 
@@ -142,7 +142,7 @@ export function Main() {
   async function step(k: number) {
     let ins = await initGameInstance();
     if (ins.getCurrency() == 0) {
-      alert("not enough currency to proceed!");
+      alert('not enough currency to proceed!');
       return;
     }
     setFocus(-1);
@@ -166,7 +166,7 @@ export function Main() {
       for (var i = 0; i < 16; i++) {
         let compare = ins.getBoard(i);
         if (compare > focusValue) {
-          alert("can only sell highest value block");
+          alert('can only sell highest value block');
           return;
         }
       }
@@ -189,7 +189,7 @@ export function Main() {
 
   function cellClass(index: number) {
     if (board[index] === 0) {
-      return "board-cell";
+      return 'board-cell';
     } else {
       return `board-cell-${board[index]}`;
     }
@@ -244,7 +244,7 @@ export function Main() {
                 onClick={() => setShowInputsAsRaw(!showInputsAsRaw)}
               ></i>
               <span>
-                {showInputsAsRaw ? "Show Commands" : "Show Raw Proof Inputs"}
+                {showInputsAsRaw ? 'Show Commands' : 'Show Raw Proof Inputs'}
               </span>
             </div>
             {showInputsAsRaw ? (
@@ -254,8 +254,8 @@ export function Main() {
             ) : (
               <>
                 <div>
-                  {commands.length == 0 && "No inputs made yet!"}
-                  {displayCommandIcons().map((icon) => {
+                  {commands.length == 0 && 'No inputs made yet!'}
+                  {displayCommandIcons().map(icon => {
                     return icon;
                   })}
                 </div>

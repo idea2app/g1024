@@ -1,12 +1,12 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import {
   ProvingParams,
   StatusState,
   QueryParams,
   WithSignature,
-} from "zkwasm-service-helper";
+} from 'zkwasm-service-helper';
 
-import { RootState } from "../app/store";
+import { RootState } from '../app/store';
 
 const initialState: StatusState = {
   tasks: [],
@@ -20,26 +20,26 @@ const initialState: StatusState = {
 };
 
 export const loadStatus = createAsyncThunk(
-  "status/fetchStatus",
+  'status/fetchStatus',
   async (query: QueryParams, thunkApi) => {
     const { endpoint } = thunkApi.getState() as RootState;
     const { data } = await endpoint.zkWasmServiceHelper.loadTasks(query);
 
     return data;
-  }
+  },
 );
 
 export const addProvingTask = createAsyncThunk(
-  "status/addProveTask",
+  'status/addProveTask',
   (task: WithSignature<ProvingParams>, thunkApi) => {
     const { endpoint } = thunkApi.getState() as RootState;
 
     return endpoint.zkWasmServiceHelper.addProvingTask(task);
-  }
+  },
 );
 
 export const statusSlice = createSlice({
-  name: "status",
+  name: 'status',
   initialState,
   reducers: {
     updateState: (state, d) => {
@@ -47,9 +47,9 @@ export const statusSlice = createSlice({
       state.loaded = d.payload.loaded;
     },
   },
-  extraReducers: (builder) => {
+  extraReducers: builder => {
     builder.addCase(loadStatus.fulfilled, (state, c) => {
-      console.log("payload", c.payload);
+      console.log('payload', c.payload);
       state.tasks = c.payload;
       state.loaded = true;
     });
