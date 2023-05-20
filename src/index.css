@@ -29,6 +29,12 @@ html {
   --icon-hover: #f1f0e1;
 }
 
+.gradient-content {
+  background: linear-gradient(90deg, #418dff 0%, #4bffdf 100%);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 .common-card-bg-box {
   border: 1px solid transparent;
   border-radius: 10px;
@@ -36,4 +42,8 @@ html {
     linear-gradient(180deg, #418dff, #344371);
   background-origin: border-box;
   background-clip: content-box, border-box;
+}
+
+.common-card-bg-box label {
+  color: #4e78b8;
 }

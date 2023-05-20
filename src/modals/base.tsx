@@ -17,7 +17,7 @@ import { selectL1Account } from "../data/accountSlice";
 import { loadStatus } from "../data/statusSlice";
 export interface ModalCommonProps {
   btnLabel: React.ReactNode;
-  title: string;
+  title: string[];
   children?: React.ReactNode;
   childrenClass: string;
   valid: boolean;
@@ -75,31 +75,38 @@ export function ModalCommon(props: ModalCommonProps) {
         dialogClassName="modal-90w"
         role="dialog"
       >
-        <Modal.Header>
-          <h5 className="w-100 text-center fs-3">{props.title}</h5>
-          <button
-            type="button"
-            className="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-            onClick={handleClose}
-          />
-        </Modal.Header>
-        <Modal.Body className="show-grid">{props.children}</Modal.Body>
-        <Modal.Footer className="flex-column">
-          <Message></Message>
+        <div className="common-card-bg-box">
+          <Modal.Header>
+            <Modal.Title className="w-100 text-center fs-3">
+              <span className="gradient-content">{props.title[0]}</span>
+              <span>{props.title[1]}</span>
+            </Modal.Title>
+            <button
+              type="button"
+              className="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+              onClick={handleClose}
+            />
+          </Modal.Header>
+          <Modal.Body className="show-grid">{props.children}</Modal.Body>
+          <Modal.Footer className="flex-column">
+            <Message></Message>
 
-          {props.handleConfirm && props.status === ModalStatus.PreConfirm && (
-            <Button
-              variant="primary"
-              disabled={props.valid !== true || account?.address === undefined}
-              onClick={props.handleConfirm}
-            >
-              {props.confirmLabel}
-            </Button>
-          )}
-          <WaitingForResponseBar></WaitingForResponseBar>
-        </Modal.Footer>
+            {props.handleConfirm && props.status === ModalStatus.PreConfirm && (
+              <Button
+                variant="primary"
+                disabled={
+                  props.valid !== true || account?.address === undefined
+                }
+                onClick={props.handleConfirm}
+              >
+                {props.confirmLabel}
+              </Button>
+            )}
+            <WaitingForResponseBar></WaitingForResponseBar>
+          </Modal.Footer>
+        </div>
       </Modal>
     </>
   );

@@ -1,15 +1,9 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import React, { useState } from "react";
-import { Container, Form, Spinner } from "react-bootstrap";
+import React from "react";
+import { Container, Form } from "react-bootstrap";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
-import {
-  ModalCommon,
-  ModalCommonProps,
-  ModalStatus,
-  WaitingForResponseBar,
-} from "./base";
-import { addProvingTask, loadStatus, selectTasks } from "../data/statusSlice";
-import { loginL1AccountAsync, selectL1Account } from "../data/accountSlice";
+import { ModalCommon, ModalCommonProps, ModalStatus } from "./base";
+import { addProvingTask, loadStatus } from "../data/statusSlice";
+import { selectL1Account } from "../data/accountSlice";
 import { withBrowerWeb3, DelphinusWeb3 } from "web3subscriber/src/client";
 
 import "./style.scss";
@@ -19,6 +13,7 @@ import {
   ZkWasmUtil,
   WithSignature,
 } from "zkwasm-service-helper";
+import { Input } from "../components/Input";
 
 interface NewWASMImageProps {
   md5: string;
@@ -50,6 +45,7 @@ export function NewProveTask(props: NewWASMImageProps) {
   const dispatch = useAppDispatch();
   let account = useAppSelector(selectL1Account);
 
+  const { md5, inputs, witness } = props;
   const [message, setMessage] = React.useState<string>("");
   const [status, setStatus] = React.useState<ModalStatus>(
     ModalStatus.PreConfirm
@@ -58,9 +54,9 @@ export function NewProveTask(props: NewWASMImageProps) {
   const prepareNewProveTask = async function () {
     let info: ProvingParams = {
       user_address: account!.address.toLowerCase(),
-      md5: props.md5,
-      public_inputs: [props.inputs],
-      private_inputs: [props.witness],
+      md5: md5,
+      public_inputs: [inputs],
+      private_inputs: [witness],
     };
 
     let msgString = ZkWasmUtil.createProvingSignMessage(info);
@@ -101,7 +97,7 @@ export function NewProveTask(props: NewWASMImageProps) {
       .finally(() => {
         let query = {
           user_address: account!.address,
-          md5: props.md5,
+          md5: md5,
           id: "",
           tasktype: "Prove",
           taskstatus: "",
@@ -116,36 +112,15 @@ export function NewProveTask(props: NewWASMImageProps) {
       <Container>
         <Form.Group className="mb-3 position-relative">
           <Form.Label variant="dark">Image ID(MD5):</Form.Label>
-          <Form.Control
-            placeholder="Select an image"
-            autoComplete="off"
-            value={props.md5}
-            id="instance-md5"
-            name="md5"
-            type="text"
-            multiple={false}
-            disabled={true}
-          />
+          <Input value={md5} />
         </Form.Group>
         <Form.Group className="mb-3">
           <Form.Label variant="dark">Public Inputs:</Form.Label>
-          <Form.Control
-            name="inputs"
-            type="text"
-            value={props.inputs}
-            multiple={false}
-            disabled={true}
-          />
+          <Input value={inputs} />
         </Form.Group>
         <Form.Group className="mb-3">
           <Form.Label variant="dark">Witness Inputs:</Form.Label>
-          <Form.Control
-            name="inputs"
-            type="text"
-            value={props.witness}
-            multiple={false}
-            disabled={true}
-          />
+          <Input value={witness} />
         </Form.Group>
       </Container>
     </>
@@ -153,7 +128,7 @@ export function NewProveTask(props: NewWASMImageProps) {
 
   let modalprops: ModalCommonProps = {
     btnLabel: <button className="sell-button">Submit Proof</button>,
-    title: "Submit Your Game Play",
+    title: ["Submit ", "Your Game Play"],
     childrenClass: "",
     handleConfirm: function (): void {
       addNewProveTask();

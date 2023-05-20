@@ -94,7 +94,7 @@ export function ProofInfoModal(info: ProofInfoProps) {
     btnLabel: (
       <button className="border-0 bg-transparent">Click to show</button>
     ),
-    title: "Proof Information",
+    title: ["Proof ", "Information"],
     childrenClass: "",
     handleConfirm: function (): void {
       testverify();
