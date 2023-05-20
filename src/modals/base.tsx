@@ -1,5 +1,5 @@
 import { ReactNode, useState } from "react";
-import { Button, Modal, Spinner } from "react-bootstrap";
+import { Button, CloseButton, Modal, Spinner } from "react-bootstrap";
 
 import { useAppSelector } from "../app/hooks";
 import { selectL1Account } from "../data/accountSlice";
@@ -26,7 +26,11 @@ export enum ModalStatus {
   Error,
 }
 
-export function ModalCommon({
+export const WaitingForResponseBar = () => (
+  <Spinner animation="border" variant="light" />
+);
+
+export const ModalCommon = ({
   btnLabel,
   title,
   children,
@@ -36,7 +40,7 @@ export function ModalCommon({
   confirmLabel,
   handleConfirm,
   ...props
-}: ModalCommonProps) {
+}: ModalCommonProps) => {
   const [show, setShow] = useState(false);
 
   const account = useAppSelector(selectL1Account);
@@ -79,13 +83,7 @@ export function ModalCommon({
               <span className="gradient-content">{title[0]}</span>
               <span>{title[1]}</span>
             </Modal.Title>
-            <button
-              type="button"
-              className="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-              onClick={handleClose}
-            />
+            <CloseButton onClick={handleClose} />
           </Modal.Header>
           <Modal.Body className="show-grid">{children}</Modal.Body>
           <Modal.Footer className="flex-column">
@@ -97,22 +95,13 @@ export function ModalCommon({
                 disabled={!valid || !account?.address}
                 onClick={handleConfirm}
               >
+                {!show && <WaitingForResponseBar />}
                 {confirmLabel}
               </Button>
             )}
-            <WaitingForResponseBar></WaitingForResponseBar>
           </Modal.Footer>
         </div>
       </Modal>
     </>
   );
-}
-
-export function WaitingForResponseBar() {
-  let wfr = false;
-  if (wfr) {
-    return <Spinner animation="border" variant="light"></Spinner>;
-  } else {
-    return <></>;
-  }
-}
+};
