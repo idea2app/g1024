@@ -1,25 +1,14 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { useState } from "react";
-import {
-  Button,
-  Container,
-  FloatingLabel,
-  Form,
-  FormLabel,
-  ListGroup,
-  Modal,
-  Spinner,
-} from "react-bootstrap";
-import { useAppDispatch, useAppSelector } from "../app/hooks";
-import "./style.scss";
-import React from "react";
+import { useState, ReactNode } from "react";
+import { Button, Modal, Spinner } from "react-bootstrap";
+
 import { selectL1Account } from "../data/accountSlice";
-import { loadStatus } from "../data/statusSlice";
-import { CommonButton } from "../components/CommonButton";
+import { useAppSelector } from "../app/hooks";
+import "./style.scss";
+
 export interface ModalCommonProps {
-  btnLabel: React.ReactNode;
+  btnLabel: ReactNode;
   title: string;
-  children?: React.ReactNode;
+  children?: ReactNode;
   childrenClass: string;
   valid: boolean;
   handleConfirm?: () => void;
@@ -27,7 +16,7 @@ export interface ModalCommonProps {
   handleClose?: () => void;
   message: string;
   status: ModalStatus;
-  confirmLabel?: React.ReactNode;
+  confirmLabel?: ReactNode;
 }
 
 export enum ModalStatus {
