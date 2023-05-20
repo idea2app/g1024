@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import { Container, Form } from "react-bootstrap";
 import { withBrowerWeb3, DelphinusWeb3 } from "web3subscriber/src/client";
 import {
@@ -9,9 +9,9 @@ import {
 
 import { useAppDispatch, useAppSelector } from "../app/hooks";
 import { ModalCommon, ModalCommonProps, ModalStatus } from "./base";
+import { CommonBg } from "../components/CommonBg";
 import { addProvingTask, loadStatus } from "../data/statusSlice";
 import { selectL1Account } from "../data/accountSlice";
-import { CommonBg } from "../components/CommonBg";
 import "./style.scss";
 
 interface NewWASMImageProps {
@@ -45,20 +45,18 @@ export function NewProveTask(props: NewWASMImageProps) {
   const account = useAppSelector(selectL1Account);
 
   const { md5, inputs, witness } = props;
-  const [message, setMessage] = React.useState<string>("");
-  const [status, setStatus] = React.useState<ModalStatus>(
-    ModalStatus.PreConfirm
-  );
+  const [message, setMessage] = useState<string>("");
+  const [status, setStatus] = useState<ModalStatus>(ModalStatus.PreConfirm);
 
   const prepareNewProveTask = async function () {
-    let info: ProvingParams = {
+    const info: ProvingParams = {
       user_address: account!.address.toLowerCase(),
-      md5: md5,
+      md5,
       public_inputs: [inputs],
       private_inputs: [witness],
     };
 
-    let msgString = ZkWasmUtil.createProvingSignMessage(info);
+    const msgString = ZkWasmUtil.createProvingSignMessage(info);
 
     let signature: string;
     try {
@@ -72,7 +70,7 @@ export function NewProveTask(props: NewWASMImageProps) {
       throw Error("Unsigned Transaction");
     }
 
-    let task: WithSignature<ProvingParams> = {
+    const task: WithSignature<ProvingParams> = {
       ...info,
       signature: signature,
     };
@@ -136,9 +134,7 @@ export function NewProveTask(props: NewWASMImageProps) {
     title: ["Submit ", "Your Game Play"],
     childrenClass: "",
     handleConfirm: addNewProveTask,
-    handleClose: () => {
-      setStatus(ModalStatus.PreConfirm);
-    },
+    handleClose: () => setStatus(ModalStatus.PreConfirm),
     children: content,
     valid: true,
     message: message,
