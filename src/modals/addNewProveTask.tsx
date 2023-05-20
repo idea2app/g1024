@@ -1,19 +1,18 @@
 import React from "react";
 import { Container, Form } from "react-bootstrap";
-import { useAppDispatch, useAppSelector } from "../app/hooks";
-import { ModalCommon, ModalCommonProps, ModalStatus } from "./base";
-import { addProvingTask, loadStatus } from "../data/statusSlice";
-import { selectL1Account } from "../data/accountSlice";
 import { withBrowerWeb3, DelphinusWeb3 } from "web3subscriber/src/client";
-
-import "./style.scss";
-
 import {
   ProvingParams,
   ZkWasmUtil,
   WithSignature,
 } from "zkwasm-service-helper";
-import { Input } from "../components/Input";
+
+import { useAppDispatch, useAppSelector } from "../app/hooks";
+import { ModalCommon, ModalCommonProps, ModalStatus } from "./base";
+import { addProvingTask, loadStatus } from "../data/statusSlice";
+import { selectL1Account } from "../data/accountSlice";
+import { CommonBg } from "../components/CommonBg";
+import "./style.scss";
 
 interface NewWASMImageProps {
   md5: string;
@@ -43,7 +42,7 @@ export async function signMessage(message: string) {
 
 export function NewProveTask(props: NewWASMImageProps) {
   const dispatch = useAppDispatch();
-  let account = useAppSelector(selectL1Account);
+  const account = useAppSelector(selectL1Account);
 
   const { md5, inputs, witness } = props;
   const [message, setMessage] = React.useState<string>("");
@@ -112,15 +111,21 @@ export function NewProveTask(props: NewWASMImageProps) {
       <Container>
         <Form.Group className="mb-3 position-relative">
           <Form.Label variant="dark">Image ID(MD5):</Form.Label>
-          <Input value={md5} />
+          <CommonBg>
+            <div className="p-3">{md5}</div>
+          </CommonBg>
         </Form.Group>
         <Form.Group className="mb-3">
           <Form.Label variant="dark">Public Inputs:</Form.Label>
-          <Input value={inputs} />
+          <CommonBg>
+            <div className="p-3">{inputs}</div>
+          </CommonBg>
         </Form.Group>
         <Form.Group className="mb-3">
           <Form.Label variant="dark">Witness Inputs:</Form.Label>
-          <Input value={witness} />
+          <CommonBg>
+            <div className="p-3">{witness}</div>
+          </CommonBg>
         </Form.Group>
       </Container>
     </>
@@ -130,9 +135,7 @@ export function NewProveTask(props: NewWASMImageProps) {
     btnLabel: <button className="sell-button">Submit Proof</button>,
     title: ["Submit ", "Your Game Play"],
     childrenClass: "",
-    handleConfirm: function (): void {
-      addNewProveTask();
-    },
+    handleConfirm: addNewProveTask,
     handleClose: () => {
       setStatus(ModalStatus.PreConfirm);
     },
