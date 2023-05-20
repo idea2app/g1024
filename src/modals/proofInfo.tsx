@@ -91,7 +91,9 @@ export function ProofInfoModal(info: ProofInfoProps) {
     </>
   );
   let props: ModalCommonProps = {
-    btnLabel: <i className="bi bi-eye cursor-pointer"></i>,
+    btnLabel: (
+      <button className="border-0 bg-transparent">Click to show</button>
+    ),
     title: "Proof Information",
     childrenClass: "",
     handleConfirm: function (): void {
