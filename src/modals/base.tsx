@@ -1,7 +1,8 @@
 import { ReactNode, useState } from "react";
-import { Button, CloseButton, Modal, Spinner } from "react-bootstrap";
+import { CloseButton, Modal, Spinner } from "react-bootstrap";
 
 import { useAppSelector } from "../app/hooks";
+import { CommonButton } from "../components/CommonButton";
 import { selectL1Account } from "../data/accountSlice";
 import "./style.scss";
 
@@ -90,14 +91,17 @@ export const ModalCommon = ({
             <Message />
 
             {handleConfirm && status === ModalStatus.PreConfirm && (
-              <Button
-                variant="primary"
+              <CommonButton
+                className="px-5 py-2"
+                border
                 disabled={!valid || !account?.address}
                 onClick={handleConfirm}
               >
-                {!show && <WaitingForResponseBar />}
-                {confirmLabel}
-              </Button>
+                <span className="gradient-content">
+                  {!show && <WaitingForResponseBar />}
+                  {confirmLabel}
+                </span>
+              </CommonButton>
             )}
           </Modal.Footer>
         </div>
