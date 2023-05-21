@@ -37,17 +37,21 @@ export function Main() {
 
   function arrowFunction(event: KeyboardEvent) {
     const { key } = event;
+    const arr = [
+      "ArrowUp",
+      "ArrowLeft",
+      "ArrowDown",
+      "ArrowRight",
+      "w",
+      "a",
+      "s",
+      "d",
+    ];
+    const index = arr.indexOf(key);
 
-    event.preventDefault();
-
-    if (key === "ArrowUp" || key === "w") {
-      step(0);
-    } else if (key === "ArrowLeft" || key === "a") {
-      step(1);
-    } else if (key === "ArrowDown" || key === "s") {
-      step(2);
-    } else if (key === "ArrowRight" || key === "d") {
-      step(3);
+    if (index >= 0) {
+      event.preventDefault();
+      step(index % 4);
     }
   }
 
