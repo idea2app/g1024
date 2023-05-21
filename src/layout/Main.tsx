@@ -18,6 +18,17 @@ import Three from "../images/3.png";
 import Four from "../images/4.png";
 import Control from "../images/control.svg";
 
+const DirectionKeys = [
+  "ArrowUp",
+  "ArrowLeft",
+  "ArrowDown",
+  "ArrowRight",
+  "w",
+  "a",
+  "s",
+  "d",
+];
+
 export function Main() {
   const [board, setBoard] = useState([
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -37,17 +48,7 @@ export function Main() {
 
   function arrowFunction(event: KeyboardEvent) {
     const { key } = event;
-    const arr = [
-      "ArrowUp",
-      "ArrowLeft",
-      "ArrowDown",
-      "ArrowRight",
-      "w",
-      "a",
-      "s",
-      "d",
-    ];
-    const index = arr.indexOf(key);
+    const index = DirectionKeys.indexOf(key);
 
     if (index >= 0) {
       event.preventDefault();
@@ -259,7 +260,7 @@ export function Main() {
                     className="appearance-none ps-0 me-1"
                     onClick={() => setShowInputsAsRaw(!showInputsAsRaw)}
                   >
-                    <i className="bi bi-eye cursor-pointer" />
+                    <i className="bi bi-eye" />
                   </button>
                   <span>
                     {showInputsAsRaw
