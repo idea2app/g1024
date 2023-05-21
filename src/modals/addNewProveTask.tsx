@@ -6,6 +6,7 @@ import {
   ZkWasmUtil,
   WithSignature,
 } from "zkwasm-service-helper";
+import { CommonButton } from "../components/CommonButton";
 
 import { useAppDispatch, useAppSelector } from "../app/hooks";
 import { ModalCommon, ModalCommonProps, ModalStatus } from "./base";
@@ -122,7 +123,7 @@ export function NewProveTask({ md5, inputs, witness }: NewWASMImageProps) {
   );
 
   let modalprops: ModalCommonProps = {
-    btnLabel: <button className="sell-button">Submit Proof</button>,
+    btnLabel: <CommonButton className="w-100">Submit ZK Proof</CommonButton>,
     title: ["Submit ", "Your Game Play"],
     childrenClass: "",
     handleConfirm: addNewProveTask,

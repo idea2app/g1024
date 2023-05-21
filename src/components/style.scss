@@ -1,3 +1,5 @@
+@import "../index";
+
 .navbar {
   border: none;
   color: var(--blue-text-color) !important;
@@ -127,5 +129,12 @@
         width: 1rem;
       }
     }
+  }
+}
+
+.border-button {
+  @extend .border-box;
+  &:before {
+    background: linear-gradient(90deg, #4da1ff 0%, #4dffdf 100%);
   }
 }
