@@ -20,41 +20,36 @@ import initGameInstance from '../js/g1024';
 import { NewProveTask } from '../modals/addNewProveTask';
 
 export function Main() {
-  const dispatch = useAppDispatch();
   const [board, setBoard] = useState([
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
   ]);
   const [focus, setFocus] = useState(-1);
   const [currency, setCurrency] = useState(20);
-  const [commands, setCommands] = useState<Array<number>>([]);
+  const [commands, setCommands] = useState<number[]>([]);
   const [highscore, setHighscore] = useState(20);
-  const [submitURI, setSubmitURI] = useState('');
 
   const [showInputsAsRaw, setShowInputsAsRaw] = useState(false);
-  let ready = useAppSelector(tasksLoaded);
 
   function appendCommand(cmds: Array<number>) {
-    setCommands(commands => {
-      return [...commands.concat(cmds)];
-    });
+    setCommands(commands => [...commands.concat(cmds)]);
   }
 
   function arrowFunction(event: KeyboardEvent) {
     event.preventDefault();
     if (event.key === 'ArrowUp' || event.key === 'w') {
       step(0);
-    } else if (event.key == 'ArrowLeft' || event.key === 'a') {
+    } else if (event.key === 'ArrowLeft' || event.key === 'a') {
       step(1);
-    } else if (event.key == 'ArrowDown' || event.key === 's') {
+    } else if (event.key === 'ArrowDown' || event.key === 's') {
       step(2);
-    } else if (event.key == 'ArrowRight' || event.key === 'd') {
+    } else if (event.key === 'ArrowRight' || event.key === 'd') {
       step(3);
     }
   }
 
   useEffect(() => {
     initGameInstance().then((ins: any) => {
-      for (var i = 0; i < 16; i++) {
+      for (let i = 0; i < 16; i++) {
         board[i] = ins.getBoard(i);
       }
       setBoard([...board]);
@@ -62,9 +57,7 @@ export function Main() {
       setCurrency(ins.getCurrency());
     });
     document.addEventListener('keydown', arrowFunction, false);
-    return () => {
-      document.removeEventListener('keydown', arrowFunction, false);
-    };
+    return () => document.removeEventListener('keydown', arrowFunction, false);
   }, []);
 
   useEffect(() => {
@@ -72,18 +65,14 @@ export function Main() {
     if (currency > highscore) setHighscore(currency);
   }, [currency]);
 
-  function getWitness() {
-    let wit = `0x`;
-    for (var c of commands) {
-      wit = wit + '0' + c.toString(16);
-    }
-    wit = wit + ':bytes-packed';
-    return wit;
-  }
+  const getWitness = () =>
+    `0x${commands.map(command =>
+      command.toString(16).padStart(2, '0'),
+    )}:bytes-packed`;
 
   function getURI() {
     let uri = `${commands.length}:i64-0x`;
-    for (var c of commands) {
+    for (let c of commands) {
       uri = uri + '0' + c.toString(16);
     }
     uri = uri + ':bytes-packed';
@@ -92,13 +81,13 @@ export function Main() {
 
   function displayCommandIcons() {
     let icons = [];
-    for (var i = 0; i < commands.length; i++) {
+    for (let i = 0; i < commands.length; i++) {
       let icon = <></>;
       //Check prev is sell, display as number not arrow
       if (i > 0) {
         if (commands[i - 1] === 4 && commands[i - 3] === 4) {
           //Display cell that has been sold
-          if (commands[i - 1] === 4 || commands[i - 2] != 4) {
+          if (commands[i - 1] === 4 || commands[i - 2] !== 4) {
             icon = <span>{commands[i]}</span>;
             icons.push(icon);
             continue;
@@ -140,13 +129,12 @@ export function Main() {
 
   async function step(k: number) {
     const ins = await initGameInstance();
-    if (ins.getCurrency() === 0) {
-      alert('not enough currency to proceed!');
-      return;
-    }
+    if (ins.getCurrency() === 0)
+      return alert('not enough currency to proceed!');
+
     setFocus(-1);
     ins.step(k);
-    for (var i = 0; i < 16; i++) {
+    for (let i = 0; i < 16; i++) {
       board[i] = ins.getBoard(i);
     }
     setBoard([...board]);
@@ -160,17 +148,14 @@ export function Main() {
 
   async function sell() {
     let ins = await initGameInstance();
-    if (focus != -1) {
+    if (focus !== -1) {
       let focusValue = ins.getBoard(focus);
-      for (var i = 0; i < 16; i++) {
-        let compare = ins.getBoard(i);
-        if (compare > focusValue) {
-          alert('can only sell highest value block');
-          return;
-        }
+      for (let i = 0; i < 16; i++) {
+        if (ins.getBoard(i) > focusValue)
+          return alert('can only sell highest value block');
       }
       ins.sell(focus);
-      for (var i = 0; i < 16; i++) {
+      for (let i = 0; i < 16; i++) {
         board[i] = ins.getBoard(i);
       }
       setBoard([...board]);
@@ -186,13 +171,8 @@ export function Main() {
     window.location.reload();
   }
 
-  function cellClass(index: number) {
-    if (board[index] === 0) {
-      return 'board-cell';
-    } else {
-      return `board-cell-${board[index]}`;
-    }
-  }
+  const cellClass = (index: number) =>
+    board[index] ? `board-cell-${board[index]}` : 'board-cell';
 
   return (
     <>
@@ -253,10 +233,8 @@ export function Main() {
             ) : (
               <>
                 <div>
-                  {commands.length == 0 && 'No inputs made yet!'}
-                  {displayCommandIcons().map(icon => {
-                    return icon;
-                  })}
+                  {!commands.length && 'No inputs made yet!'}
+                  {displayCommandIcons()}
                 </div>
               </>
             )}

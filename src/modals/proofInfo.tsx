@@ -1,11 +1,7 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import './style.scss';
 
 import BN from 'bn.js';
-import React from 'react';
-import { Container, ListGroup } from 'react-bootstrap';
-import Tab from 'react-bootstrap/Tab';
-import Tabs from 'react-bootstrap/Tabs';
+import { Container, ListGroup, Tab, Tabs } from 'react-bootstrap';
 import { Task } from 'zkwasm-service-helper';
 
 import { useAppSelector } from '../app/hooks';
@@ -42,7 +38,6 @@ export function ProofInfoModal(info: ProofInfoProps) {
           .send();
         console.log('verification result:', result.toString());
       }
-      let address = image.deployment;
     } else {
       console.error('wallet not connected');
     }
@@ -60,13 +55,11 @@ export function ProofInfoModal(info: ProofInfoProps) {
             </p>
           </Tab>
           <Tab eventKey="Instances" title="Instances">
-            {instances.map((proof: BN) => {
-              return (
-                <ListGroup.Item key={proof.toString('hex')}>
-                  0x{proof.toString('hex')}
-                </ListGroup.Item>
-              );
-            })}
+            {instances.map(proof => (
+              <ListGroup.Item key={proof.toString('hex')}>
+                0x{proof.toString('hex')}
+              </ListGroup.Item>
+            ))}
           </Tab>
           <Tab eventKey="prooftranscript" title="Proof Transcripts">
             <div className="scroll-300">
