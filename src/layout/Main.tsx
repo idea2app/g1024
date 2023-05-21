@@ -139,8 +139,8 @@ export function Main() {
   }
 
   async function step(k: number) {
-    let ins = await initGameInstance();
-    if (ins.getCurrency() == 0) {
+    const ins = await initGameInstance();
+    if (ins.getCurrency() === 0) {
       alert('not enough currency to proceed!');
       return;
     }

@@ -9,8 +9,7 @@ export interface L1AccountInfo {
 
 async function loginL1Account() {
   return await withBrowerWeb3(async (web3: DelphinusWeb3) => {
-    let i = await web3.getAccountInfo();
-    return i;
+    return await web3.getAccountInfo();
   });
 }
 
@@ -44,8 +43,8 @@ export const accountSlice = createSlice({
   name: 'account',
   initialState,
   reducers: {
-    setL1Account: (state, account) => {
-      state.l1Account!.address = account.payload;
+    setL1Account: (state, { payload }) => {
+      state.l1Account!.address = payload;
     },
   },
   extraReducers: builder => {
@@ -53,10 +52,9 @@ export const accountSlice = createSlice({
       .addCase(loginL1AccountAsync.pending, state => {
         state.status = 'Loading';
       })
-      .addCase(loginL1AccountAsync.fulfilled, (state, c) => {
+      .addCase(loginL1AccountAsync.fulfilled, (state, { payload }) => {
         state.status = 'Ready';
-        console.log(c);
-        state.l1Account = c.payload;
+        state.l1Account = payload;
       });
   },
 });

@@ -42,15 +42,15 @@ export const statusSlice = createSlice({
   name: 'status',
   initialState,
   reducers: {
-    updateState: (state, d) => {
-      state.tasks = d.payload.tasks;
-      state.loaded = d.payload.loaded;
+    updateState: (state, { payload: { tasks, loaded } }) => {
+      state.tasks = tasks;
+      state.loaded = loaded;
     },
   },
   extraReducers: builder => {
-    builder.addCase(loadStatus.fulfilled, (state, c) => {
-      console.log('payload', c.payload);
-      state.tasks = c.payload;
+    builder.addCase(loadStatus.fulfilled, (state, { payload }) => {
+      console.log('payload', payload);
+      state.tasks = payload;
       state.loaded = true;
     });
   },

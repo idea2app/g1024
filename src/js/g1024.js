@@ -1,7 +1,7 @@
 import makeWasm from './g1024.wasm';
-const { Module, instantiate, Memory, Table } = WebAssembly;
 
-var instance = null;
+const { Memory, Table } = WebAssembly;
+let instance = null;
 
 export default async function () {
   if (instance != null) {

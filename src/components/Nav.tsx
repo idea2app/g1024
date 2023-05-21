@@ -24,7 +24,7 @@ export function MainNavBar(props: IProps) {
   }, []);
 
   return (
-    <Navbar expand="lg" style={{ zIndex: '1000' }}>
+    <Navbar expand="lg" style={{ zIndex: 1000 }}>
       <Container className="justify-content-md-between">
         <Navbar.Brand href="http://www.delphinuslab.com">
           <img src={logo} height="30" alt="logo"></img>
