@@ -213,7 +213,7 @@ export function Main() {
       <Row className="mt-3">
         <Col>
           <div className="content">
-            {[...Array(4)].map((_, r) => (
+            {Array.from(new Array(4), (_, r) => (
               <div className="board-row" key={r}>
                 {Array.from(new Array(4), (_, c) => {
                   const index = r * 4 + c;
@@ -224,7 +224,7 @@ export function Main() {
                       onClick={() => toggleSelect(index)}
                       key={index}
                     >
-                      {index === focus && <div></div>}
+                      {index === focus && <div />}
                     </div>
                   );
                 })}
