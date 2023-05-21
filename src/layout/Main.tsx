@@ -309,8 +309,9 @@ export function Main() {
             </div>
           </div>
         </div>
+
+        <History md5="77DA9B5A42FABD295FD67CCDBDF2E348" />
       </Container>
-      <History md5="77DA9B5A42FABD295FD67CCDBDF2E348"></History>
     </>
   );
 }
