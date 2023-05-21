@@ -36,14 +36,17 @@ export function Main() {
   }
 
   function arrowFunction(event: KeyboardEvent) {
+    const { key } = event;
+
     event.preventDefault();
-    if (event.key === "ArrowUp" || event.key === "w") {
+
+    if (key === "ArrowUp" || key === "w") {
       step(0);
-    } else if (event.key === "ArrowLeft" || event.key === "a") {
+    } else if (key === "ArrowLeft" || key === "a") {
       step(1);
-    } else if (event.key === "ArrowDown" || event.key === "s") {
+    } else if (key === "ArrowDown" || key === "s") {
       step(2);
-    } else if (event.key === "ArrowRight" || event.key === "d") {
+    } else if (key === "ArrowRight" || key === "d") {
       step(3);
     }
   }
@@ -198,7 +201,7 @@ export function Main() {
               className="high-score mx-2"
               tag="Score"
               value={highscore}
-            ></CurrencyDisplay>
+            />
           </Col>
         </Row>
         <Row className="mt-3">
@@ -248,10 +251,12 @@ export function Main() {
             <Row className="py-3 border-content rounded-4">
               <Col>
                 <div>
-                  <i
-                    className="bi bi-eye me-2 cursor-pointer"
+                  <button
+                    className="appearance-none ps-0 me-1"
                     onClick={() => setShowInputsAsRaw(!showInputsAsRaw)}
-                  />
+                  >
+                    <i className="bi bi-eye cursor-pointer" />
+                  </button>
                   <span>
                     {showInputsAsRaw
                       ? "Show Commands"
