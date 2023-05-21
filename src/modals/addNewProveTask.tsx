@@ -22,13 +22,13 @@ interface NewWASMImageProps {
 
 export async function signMessage(message: string) {
   const signature = await withBrowerWeb3(async (web3: DelphinusWeb3) => {
-    const provider = web3.web3Instance.currentProvider;
-    if (!provider) {
+    const { currentProvider } = web3.web3Instance;
+    if (!currentProvider) {
       throw new Error("No provider found!");
     }
     const [account] = await web3.web3Instance.eth.getAccounts();
     const msg = web3.web3Instance.utils.utf8ToHex(message);
-    const sig = await (provider as any).request({
+    const sig = await (currentProvider as any).request({
       method: "personal_sign",
       params: [msg, account],
     });
@@ -39,11 +39,9 @@ export async function signMessage(message: string) {
   return signature;
 }
 
-export function NewProveTask(props: NewWASMImageProps) {
+export function NewProveTask({ md5, inputs, witness }: NewWASMImageProps) {
   const dispatch = useAppDispatch();
   const account = useAppSelector(selectL1Account);
-
-  const { md5, inputs, witness } = props;
   const [message, setMessage] = useState<string>("");
   const [status, setStatus] = useState<ModalStatus>(ModalStatus.PreConfirm);
 
@@ -90,15 +88,15 @@ export function NewProveTask(props: NewWASMImageProps) {
       setStatus(ModalStatus.PreConfirm);
     }
 
-    const query = {
-      user_address: account!.address,
-      md5,
-      id: "",
-      tasktype: "Prove",
-      taskstatus: "",
-    };
-
-    dispatch(loadStatus(query));
+    dispatch(
+      loadStatus({
+        user_address: account!.address,
+        md5,
+        id: "",
+        tasktype: "Prove",
+        taskstatus: "",
+      })
+    );
   };
 
   const FormGroup: FC<Record<"label" | "value", string>> = ({
@@ -116,7 +114,7 @@ export function NewProveTask(props: NewWASMImageProps) {
   const content = (
     <>
       <Container>
-        <FormGroup label="Image ID(MD5):" value={md5} />
+        <FormGroup label="Image ID (MD5):" value={md5} />
         <FormGroup label="Public Inputs:" value={inputs} />
         <FormGroup label="Witness Inputs:" value={witness} />
       </Container>
