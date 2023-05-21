@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
 
 import { useAppSelector, useAppDispatch } from "../app/hooks";
@@ -14,8 +14,8 @@ interface IProps {
 
 export function MainNavBar(props: IProps) {
   const dispatch = useAppDispatch();
-
-  let account = useAppSelector(selectL1Account);
+  const account = useAppSelector(selectL1Account);
+  const [maxScore, setMaxScore] = useState(6889);
 
   useEffect(() => {
     dispatch(loginL1AccountAsync());
@@ -31,25 +31,19 @@ export function MainNavBar(props: IProps) {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
 
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="ms-auto">
-            <CurrencyDisplay tag="Best Score" value={6889} />
-            {account && (
-              <>
-                <Navbar.Text>
-                  <div>Account</div>
-                  <div>{addressAbbreviation(account.address, 4)}</div>
-                </Navbar.Text>
-              </>
-            )}
-            {!account && (
-              <>
-                <button
-                  className="appearance-none rounded-pill border-0 fs-5 fw-semibold ms-4 ms-xl-0 text-black connect"
-                  onClick={() => dispatch(loginL1AccountAsync())}
-                >
-                  Connect Wallet
-                </button>
-              </>
+          <Nav className="ms-auto mt-2">
+            <CurrencyDisplay tag="Best Score" value={maxScore} />
+            {account ? (
+              <div className="d-flex align-items-center ms-4">
+                {addressAbbreviation(account.address, 4)}
+              </div>
+            ) : (
+              <button
+                className="appearance-none rounded-pill fs-5 fw-semibold ms-4 text-black connect"
+                onClick={() => dispatch(loginL1AccountAsync())}
+              >
+                Connect Wallet
+              </button>
             )}
           </Nav>
         </Navbar.Collapse>

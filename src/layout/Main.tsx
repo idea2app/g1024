@@ -3,7 +3,7 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 
 import "./style.scss";
 
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { QRCodeSVG } from "qrcode.react";
 
@@ -206,31 +206,30 @@ export function Main() {
             className="high-score mx-2"
             tag="Score"
             value={highscore}
-          ></CurrencyDisplay>
+          />
         </Col>
       </Row>
 
       <Row className="mt-3">
         <Col>
           <div className="content">
-            {[...Array(4)].map((_, r) => {
-              return (
-                <div className="board-row" key={r}>
-                  {[...Array(4)].map((_, c) => {
-                    let index = r * 4 + c;
-                    return (
-                      <div
-                        className={`${cellClass(r * 4 + c)} board-cell-out`}
-                        onClick={() => toggleSelect(index)}
-                        key={index}
-                      >
-                        {index === focus && <div></div>}
-                      </div>
-                    );
-                  })}
-                </div>
-              );
-            })}
+            {[...Array(4)].map((_, r) => (
+              <div className="board-row" key={r}>
+                {Array.from(new Array(4), (_, c) => {
+                  const index = r * 4 + c;
+
+                  return (
+                    <div
+                      className={`${cellClass(index)} board-cell-out`}
+                      onClick={() => toggleSelect(index)}
+                      key={index}
+                    >
+                      {index === focus && <div></div>}
+                    </div>
+                  );
+                })}
+              </div>
+            ))}
           </div>
         </Col>
       </Row>
@@ -251,45 +250,33 @@ export function Main() {
             </span>
           </div>
           {showInputsAsRaw ? (
-            <>
-              <div>{getURI()}</div>
-            </>
+            <div>{getURI()}</div>
           ) : (
-            <>
-              <div>
-                {commands.length == 0 && "No inputs made yet!"}
-                {displayCommandIcons().map((icon) => {
-                  return icon;
-                })}
-              </div>
-            </>
+            <div>
+              {!commands.length && "No inputs made yet!"}
+              {displayCommandIcons()}
+            </div>
           )}
         </Col>
       </Row>
 
       {commands.length > 0 && (
-        <>
-          <div className="d-flex justify-content-center">
-            <Row className="justify-content-md-center">
-              <Col>
-                <NewProveTask
-                  md5="77DA9B5A42FABD295FD67CCDBDF2E348"
-                  inputs={`${commands.length}:i64`}
-                  witness={getWitness()}
-                ></NewProveTask>
-              </Col>
-            </Row>
-          </div>
-        </>
+        <Row className="justify-content-md-center text-center">
+          <Col>
+            <NewProveTask
+              md5="77DA9B5A42FABD295FD67CCDBDF2E348"
+              inputs={`${commands.length}:i64`}
+              witness={getWitness()}
+            />
+          </Col>
+        </Row>
       )}
 
       <Row className="justify-content-center">
         <Col sm={7}>
           <Row className="pt-4">
             <Col className="d-flex qr-code">
-              <div>
-                <QRCodeSVG value={getURI()} />
-              </div>
+              <QRCodeSVG value={getURI()} />
 
               <div className="ms-4 qr-msg">
                 Scan this QR Code to redeem your prize
@@ -297,36 +284,35 @@ export function Main() {
             </Col>
           </Row>
           <Row className="game-info mt-4">
-            <Row>
+            <Col xs={12} as="p">
               HOW TO PLAY: Use your arrow keys to move the tiles. Each time you
               move, one currency unit is deducted. When two tiles with the same
               icon touch, they merge into one tile with same icon they summed to
               one! When you make the highest tile, you can sell the highest tile
               for currency.
-            </Row>
-            <Row className="my-4">
+            </Col>
+            <Col xs={12} className="my-4">
               <div className="d-flex align-items-center justify-content-center">
-                <img src={One} alt="" className="game-icon" />
-                <i className="bi bi-plus-lg mx-2"></i>
-                <img src={One} alt="" className="game-icon" />
-                <i className="bi bi-arrow-right mx-2"></i>
-                <img src={Two} alt="" className="game-icon" />
-                <i className="bi bi-plus-lg mx-2"></i>
-                <img src={Two} alt="" className="game-icon" />
-                <i className="bi bi-arrow-right mx-2"></i>
-                <img src={Three} alt="" className="game-icon" />
-                <i className="bi bi-plus-lg mx-2"></i>
-                <img src={Three} alt="" className="game-icon" />
-                <i className="bi bi-arrow-right mx-2"></i>
-                <img src={Four} alt="" className="game-icon" />
-                <i className="bi bi-plus-lg mx-2"></i>
-                <span>...etc</span>
+                {[One, Two, Three, Four].map((src, index, { length }) => (
+                  <Fragment key={src}>
+                    <img src={src} alt="" className="game-icon" />
+
+                    {index + 1 < length && (
+                      <>
+                        <i className="bi bi-plus-lg mx-2"></i>
+                        <img src={src} alt="" className="game-icon" />
+                        <i className="bi bi-arrow-right mx-2"></i>
+                      </>
+                    )}
+                  </Fragment>
+                ))}
+                <span>...</span>
               </div>
-            </Row>
-            <Row>
+            </Col>
+            <p>
               Game is based on Saming's 2048 and conceptually similar to Threes
               by Asher Vollmer.
-            </Row>
+            </p>
           </Row>
         </Col>
       </Row>
