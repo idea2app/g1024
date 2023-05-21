@@ -35,15 +35,13 @@ export function Main() {
   ]);
   const [focus, setFocus] = useState(-1);
   const [currency, setCurrency] = useState(20);
-  const [commands, setCommands] = useState<Array<number>>([]);
+  const [commands, setCommands] = useState<number[]>([]);
   const [highscore, setHighscore] = useState(20);
 
   const [showInputsAsRaw, setShowInputsAsRaw] = useState(false);
 
-  function appendCommand(cmds: Array<number>) {
-    setCommands((commands) => {
-      return [...commands.concat(cmds)];
-    });
+  function appendCommand(cmds: number[]) {
+    setCommands((commands) => [...commands.concat(cmds)]);
   }
 
   function arrowFunction(event: KeyboardEvent) {
@@ -74,23 +72,15 @@ export function Main() {
     if (currency > highscore) setHighscore(currency);
   }, [currency]);
 
-  function getWitness() {
-    let wit = `0x`;
-    for (var c of commands) {
-      wit = wit + "0" + c.toString(16);
-    }
-    wit = wit + ":bytes-packed";
-    return wit;
-  }
+  const getWitness = () =>
+    `0x${commands.map((command) =>
+      command.toString(16).padStart(2, "0")
+    )}:bytes-packed`;
 
-  function getURI() {
-    let uri = `${commands.length}:i64-0x`;
-    for (var c of commands) {
-      uri = uri + "0" + c.toString(16);
-    }
-    uri = uri + ":bytes-packed";
-    return uri;
-  }
+  const getURI = () =>
+    `${commands.length}:i64-0x${commands.map((command) =>
+      command.toString(16).padStart(2, "0")
+    )}:bytes-packed`;
 
   function displayCommandIcons() {
     let icons = [];
@@ -213,25 +203,23 @@ export function Main() {
       <Row className="mt-3">
         <Col>
           <div className="content">
-            {[...Array(4)].map((_, r) => {
-              return (
-                <div className="board-row" key={r}>
-                  {Array.from(new Array(4), (_, c) => {
-                    const index = r * 4 + c;
+            {Array.from(new Array(4), (_, r) => (
+              <div className="board-row" key={r}>
+                {Array.from(new Array(4), (_, c) => {
+                  const index = r * 4 + c;
 
-                    return (
-                      <div
-                        className={`${cellClass(index)} board-cell-out`}
-                        onClick={() => toggleSelect(index)}
-                        key={index}
-                      >
-                        {index === focus && <div></div>}
-                      </div>
-                    );
-                  })}
-                </div>
-              );
-            })}
+                  return (
+                    <div
+                      className={`${cellClass(index)} board-cell-out`}
+                      onClick={() => toggleSelect(index)}
+                      key={index}
+                    >
+                      {index === focus && <div></div>}
+                    </div>
+                  );
+                })}
+              </div>
+            ))}
           </div>
         </Col>
       </Row>

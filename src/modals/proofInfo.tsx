@@ -94,7 +94,7 @@ export function ProofInfoModal(info: ProofInfoProps) {
     btnLabel: <button className="appearance-none">Click to show</button>,
     title: ["Proof ", "Information"],
     childrenClass: "",
-    handleConfirm: testverify,
+    onConfirm: testverify,
     valid: true,
     status: ModalStatus.PreConfirm,
     children: taskproof,

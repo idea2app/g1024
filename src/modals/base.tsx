@@ -12,9 +12,9 @@ export interface ModalCommonProps {
   children?: ReactNode;
   childrenClass: string;
   valid: boolean;
-  handleConfirm?: () => void;
-  handleShow?: () => void;
-  handleClose?: () => void;
+  onConfirm?: () => void;
+  onShow?: () => void;
+  onClose?: () => void;
   message: string;
   status: ModalStatus;
   confirmLabel?: ReactNode;
@@ -39,21 +39,23 @@ export const ModalCommon = ({
   message,
   status,
   confirmLabel,
-  handleConfirm,
+  onShow,
+  onClose,
+  onConfirm,
   ...props
 }: ModalCommonProps) => {
   const [show, setShow] = useState(false);
 
   const account = useAppSelector(selectL1Account);
   const handleClose = () => {
-    if (props.handleClose) {
-      props.handleClose();
+    if (onClose) {
+      onClose();
     }
     setShow(false);
   };
   const handleShow = () => {
-    if (props.handleShow) {
-      props.handleShow();
+    if (onShow) {
+      onShow();
     }
     setShow(true);
   };
@@ -90,12 +92,12 @@ export const ModalCommon = ({
           <Modal.Footer className="flex-column">
             <Message />
 
-            {handleConfirm && status === ModalStatus.PreConfirm && (
+            {onConfirm && status === ModalStatus.PreConfirm && (
               <CommonButton
                 className="px-5 py-2"
                 border
                 disabled={!valid || !account?.address}
-                onClick={handleConfirm}
+                onClick={onConfirm}
               >
                 <span className="gradient-content">
                   {!show && <WaitingForResponseBar />}
