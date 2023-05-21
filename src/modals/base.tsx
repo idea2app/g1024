@@ -1,16 +1,15 @@
 import './style.scss';
 
-import { useState } from 'react';
-import React from 'react';
+import { ReactNode, useState } from 'react';
 import { Button, Modal, Spinner } from 'react-bootstrap';
 
 import { useAppSelector } from '../app/hooks';
 import { selectL1Account } from '../data/accountSlice';
 
 export interface ModalCommonProps {
-  btnLabel: React.ReactNode;
+  btnLabel: ReactNode;
   title: string;
-  children?: React.ReactNode;
+  children?: ReactNode;
   childrenClass: string;
   valid: boolean;
   handleConfirm?: () => void;
@@ -18,7 +17,7 @@ export interface ModalCommonProps {
   handleClose?: () => void;
   message: string;
   status: ModalStatus;
-  confirmLabel?: React.ReactNode;
+  confirmLabel?: ReactNode;
 }
 
 export enum ModalStatus {

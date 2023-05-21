@@ -10,6 +10,7 @@ import {
 } from 'zkwasm-service-helper';
 
 import { useAppDispatch, useAppSelector } from '../app/hooks';
+import { CommonButton } from '../components/CommonButton';
 import { selectL1Account } from '../data/accountSlice';
 import { addProvingTask, loadStatus } from '../data/statusSlice';
 import { ModalCommon, ModalCommonProps, ModalStatus } from './base';
@@ -142,15 +143,11 @@ export function NewProveTask(props: NewWASMImageProps) {
   );
 
   let modalprops: ModalCommonProps = {
-    btnLabel: <button className="sell-button">Submit Proof</button>,
+    btnLabel: <CommonButton className="w-100">Submit ZK Proof</CommonButton>,
     title: 'Submit Your Game Play',
     childrenClass: '',
-    handleConfirm: function (): void {
-      addNewProveTask();
-    },
-    handleClose: () => {
-      setStatus(ModalStatus.PreConfirm);
-    },
+    handleConfirm: addNewProveTask,
+    handleClose: () => setStatus(ModalStatus.PreConfirm),
     children: content,
     valid: true,
     message: message,
