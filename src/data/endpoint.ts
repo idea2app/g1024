@@ -52,17 +52,14 @@ export const endpointSlice = createSlice({
   name: 'endpoint',
   initialState,
   reducers: {
-    updateCurrentEndpoint: (
-      { currentEndpoint, zkWasmServiceHelper },
-      { payload }: PayloadAction<Endpoint>,
-    ) => {
+    updateCurrentEndpoint: (state, { payload }: PayloadAction<Endpoint>) => {
       localStorage.setItem('lastUsedEndpoint', JSON.stringify(payload));
-      currentEndpoint = payload;
-      zkWasmServiceHelper = new ZkWasmServiceHelper(payload.url, '', '');
+      state.currentEndpoint = payload;
+      state.zkWasmServiceHelper = new ZkWasmServiceHelper(payload.url, '', '');
     },
-    setEndpointList: ({ endpointList }, { payload }) => {
+    setEndpointList: (state, { payload }) => {
       localStorage.setItem(storageKey, JSON.stringify(payload));
-      endpointList = payload;
+      state.endpointList = payload;
     },
   },
 });
