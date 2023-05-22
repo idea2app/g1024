@@ -68,18 +68,12 @@ export function parseArg(input: string) {
 
   // Convert value byte array
   if (type === 'i64') {
-    let v: BN;
-    if (value.slice(0, 2) === '0x') {
-      v = new BN(value.slice(2), 16);
-    } else {
-      v = new BN(value);
-    }
-
-    return [v];
+    return [
+      value.startsWith('0x') ? new BN(value.slice(2), 16) : new BN(value),
+    ];
   } else if (type === 'bytes' || type === 'bytes-packed') {
     if (value.slice(0, 2) !== '0x') {
-      console.log('Error: bytes input need start with 0x');
-      return null;
+      return console.log('Error: bytes input need start with 0x');
     }
 
     return hexToBNs(value.slice(2));
@@ -92,6 +86,6 @@ export const parseArgs = (raw: Array<string>) =>
       const args = parseArg(input.trim());
 
       if (args != null) return args;
-      else throw Error(`invalid args in ${input}`);
+      throw Error(`invalid args in ${input}`);
     })
     .flat();

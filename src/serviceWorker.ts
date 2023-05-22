@@ -116,10 +116,9 @@ async function checkValidServiceWorker(swUrl: string, config?: Config) {
       (contentType != null && !contentType.includes('javascript'))
     ) {
       // No service worker found. Probably a different app. Reload the page.
-      navigator.serviceWorker.ready.then(registration => {
-        registration.unregister().then(() => {
-          window.location.reload();
-        });
+      navigator.serviceWorker.ready.then(async registration => {
+        await registration.unregister();
+        window.location.reload();
       });
     } else {
       // Service worker found. Proceed as normal.
@@ -132,11 +131,8 @@ async function checkValidServiceWorker(swUrl: string, config?: Config) {
   }
 }
 
-export const unregister = () =>
-  navigator.serviceWorker?.ready.then(registration =>
-    registration.unregister(),
-  );
+export const unregister = async () =>
+  (await navigator.serviceWorker?.ready).unregister;
 
-export const rejectionHandler = ({ reason }: PromiseRejectionEvent) => {
-  console.warn(reason);
-};
+export const rejectionHandler = ({ reason }: PromiseRejectionEvent) =>
+  alert(reason.message || reason);

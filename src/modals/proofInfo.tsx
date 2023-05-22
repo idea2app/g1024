@@ -17,32 +17,36 @@ export interface ProofInfoProps {
 }
 
 export function ProofInfoModal(info: ProofInfoProps) {
-  let account = useAppSelector(selectL1Account);
-  let task = info.task;
-  let aggregate_proof = bytesToBN(task.proof);
-  let instances = bytesToBN(task.instances);
-  let aux = bytesToBN(task.aux);
+  const account = useAppSelector(selectL1Account);
+  const task = info.task;
+  const aggregate_proof = bytesToBN(task.proof);
+  const instances = bytesToBN(task.instances);
+  const aux = bytesToBN(task.aux);
   async function testverify() {
     if (account) {
-      let web3 = account.web3!;
-      let image = await zkwasmHelper.queryImage(info.task.md5);
+      const web3 = account.web3!;
+      const image = await zkwasmHelper.queryImage(info.task.md5);
       if (image.deployment.length > 0) {
-        let address = image.deployment[0].address;
-        let verify_contract = new web3.eth.Contract(contract_abi.abi, address, {
-          from: account!.address,
-        });
-        let args = parseArgs(task.public_inputs).map(x => x.toString(10));
+        const address = image.deployment[0].address;
+        const verify_contract = new web3.eth.Contract(
+          contract_abi.abi,
+          address,
+          {
+            from: account!.address,
+          },
+        );
+        const args = parseArgs(task.public_inputs).map(x => x.toString(10));
         console.log('args are:', args);
-        let result = await verify_contract.methods
+        const result = await verify_contract.methods
           .verify(aggregate_proof, instances, aux, [args])
           .send();
-        console.log('verification result:', result.toString());
+        console.log(`verification result: ${result}`);
       }
     } else {
-      console.error('wallet not connected');
+      console.error('walconst not connected');
     }
   }
-  let taskproof = (
+  const taskproof = (
     <>
       <Container>
         <Tabs defaultActiveKey="Inputs" className="mb-3" justify>
@@ -85,8 +89,8 @@ export function ProofInfoModal(info: ProofInfoProps) {
       </Container>
     </>
   );
-  let props: ModalCommonProps = {
-    btnLabel: <button className="appearance-none">Click to show</button>,
+  const props: ModalCommonProps = {
+    buttonLabel: <button className="appearance-none">Click to show</button>,
     title: ['Proof ', 'Information'],
     childrenClass: '',
     onConfirm: testverify,

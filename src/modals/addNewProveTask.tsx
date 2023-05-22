@@ -18,7 +18,7 @@ import { ModalCommon, ModalCommonProps, ModalStatus } from './base';
 
 type NewWASMImageProps = Record<'md5' | 'inputs' | 'witness', string>;
 
-export async function signMessage(message: string) {
+export function signMessage(message: string) {
   return withBrowerWeb3(
     async ({
       web3Instance: { currentProvider, eth, utils },
@@ -121,7 +121,7 @@ export function NewProveTask({ md5, inputs, witness }: NewWASMImageProps) {
   );
 
   const modalprops: ModalCommonProps = {
-    btnLabel: <CommonButton className="w-100">Submit ZK Proof</CommonButton>,
+    buttonLabel: <CommonButton className="w-100">Submit ZK Proof</CommonButton>,
     title: ['Submit ', 'Your Game Play'],
     childrenClass: '',
     onConfirm: addNewProveTask,
