@@ -29,7 +29,7 @@ const DirectionKeys = [
 ];
 
 export function Main() {
-  const [board, setBoard] = useState(Array(12).fill(0));
+  const [board, setBoard] = useState(Array(16).fill(0));
   const [focus, setFocus] = useState(-1);
   const [currency, setCurrency] = useState(20);
   const [commands, setCommands] = useState<number[]>([]);

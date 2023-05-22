@@ -75,7 +75,7 @@ export function NewProveTask({ md5, inputs, witness }: NewWASMImageProps) {
   };
 
   const addNewProveTask = async function () {
-    let task = await prepareNewProveTask();
+    const task = await prepareNewProveTask();
 
     try {
       await dispatch(addProvingTask(task)).unwrap();
@@ -120,7 +120,7 @@ export function NewProveTask({ md5, inputs, witness }: NewWASMImageProps) {
     </>
   );
 
-  let modalprops: ModalCommonProps = {
+  const modalprops: ModalCommonProps = {
     btnLabel: <CommonButton className="w-100">Submit ZK Proof</CommonButton>,
     title: ['Submit ', 'Your Game Play'],
     childrenClass: '',
@@ -132,5 +132,6 @@ export function NewProveTask({ md5, inputs, witness }: NewWASMImageProps) {
     status: status,
     confirmLabel: 'Confirm',
   };
+
   return ModalCommon(modalprops);
 }
