@@ -30,19 +30,15 @@ const DirectionKeys = [
 ];
 
 export function Main() {
-  const [board, setBoard] = useState([
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-  ]);
+  const [board, setBoard] = useState(Array(12).fill(0));
   const [focus, setFocus] = useState(-1);
   const [currency, setCurrency] = useState(20);
   const [commands, setCommands] = useState<number[]>([]);
   const [highscore, setHighscore] = useState(20);
-
   const [showInputsAsRaw, setShowInputsAsRaw] = useState(false);
 
-  function appendCommand(cmds: number[]) {
-    setCommands((commands) => [...commands.concat(cmds)]);
-  }
+  const appendCommand = (cmds: number[]) =>
+    setCommands((commands) => [...commands, ...cmds]);
 
   function arrowFunction(event: KeyboardEvent) {
     const { key } = event;
@@ -210,11 +206,11 @@ export function Main() {
 
                   return (
                     <div
+                      key={index}
                       className={`${cellClass(index)} board-cell-out`}
                       onClick={() => toggleSelect(index)}
-                      key={index}
                     >
-                      {index === focus && <div></div>}
+                      {index === focus && <div />}
                     </div>
                   );
                 })}

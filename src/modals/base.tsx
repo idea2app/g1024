@@ -12,9 +12,9 @@ export interface ModalCommonProps {
   children?: ReactNode;
   childrenClass: string;
   valid: boolean;
-  onConfirm?: () => void;
-  onShow?: () => void;
-  onClose?: () => void;
+  onConfirm?: () => any;
+  onShow?: () => any;
+  onClose?: () => any;
   message: string;
   status: ModalStatus;
   confirmLabel?: ReactNode;
@@ -48,15 +48,11 @@ export const ModalCommon = ({
 
   const account = useAppSelector(selectL1Account);
   const handleClose = () => {
-    if (onClose) {
-      onClose();
-    }
+    onClose?.();
     setShow(false);
   };
   const handleShow = () => {
-    if (onShow) {
-      onShow();
-    }
+    onShow?.();
     setShow(true);
   };
 
