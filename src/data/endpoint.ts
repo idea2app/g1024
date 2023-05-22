@@ -5,12 +5,6 @@ import { RootState } from '../app/store';
 
 export const resturl = 'http://129.146.114.145:8080';
 export const zkwasmHelper = new ZkWasmServiceHelper(resturl, '', '');
-
-export interface Endpoint {
-  url: string;
-  nickname: string;
-}
-
 export const storageKey = 'customURLs';
 
 export const defaultEndpoint: Endpoint = {
@@ -18,14 +12,15 @@ export const defaultEndpoint: Endpoint = {
   nickname: 'Default',
 };
 
+export interface Endpoint {
+  url: string;
+  nickname: string;
+}
+
 function customEndpoints() {
-  const endpoints = localStorage.getItem(storageKey);
+  const endpoints = localStorage[storageKey];
 
-  if (endpoints) {
-    return JSON.parse(endpoints) as Endpoint[];
-  }
-
-  return [];
+  return endpoints ? (JSON.parse(endpoints) as Endpoint[]) : [];
 }
 
 function getLastUsedEndpoint() {
@@ -74,11 +69,13 @@ export const endpointSlice = createSlice({
 
 export const { updateCurrentEndpoint, setEndpointList } = endpointSlice.actions;
 
-export const selectEndpointList = ({ endpoint }: RootState) =>
-  endpoint.endpointList;
-export const selectCurrentEndpoint = ({ endpoint }: RootState) =>
-  endpoint.currentEndpoint;
-export const selectZkWasmServiceHelper = ({ endpoint }: RootState) =>
-  endpoint.zkWasmServiceHelper;
+export const selectEndpointList = ({ endpoint: { endpointList } }: RootState) =>
+  endpointList;
+export const selectCurrentEndpoint = ({
+  endpoint: { currentEndpoint },
+}: RootState) => currentEndpoint;
+export const selectZkWasmServiceHelper = ({
+  endpoint: { zkWasmServiceHelper },
+}: RootState) => zkWasmServiceHelper;
 
 export default endpointSlice.reducer;

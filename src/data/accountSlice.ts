@@ -1,17 +1,12 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { DelphinusWeb3, withBrowerWeb3 } from 'web3subscriber/src/client';
+import { withBrowerWeb3 } from 'web3subscriber/src/client';
 
-export interface L1AccountInfo {
-  address: string;
-  chainId: string;
+export interface L1AccountInfo extends Record<'address' | 'chainId', string> {
   web3: any;
 }
 
-async function loginL1Account() {
-  return await withBrowerWeb3(async (web3: DelphinusWeb3) => {
-    return await web3.getAccountInfo();
-  });
-}
+const loginL1Account = () =>
+  withBrowerWeb3(({ getAccountInfo }) => getAccountInfo());
 
 export interface AccountState {
   l1Account?: L1AccountInfo;
@@ -33,10 +28,7 @@ const initialState: AccountState = {
 // typically used to make async requests.
 export const loginL1AccountAsync = createAsyncThunk(
   'acccount/fetchAccount',
-  async thunkApi => {
-    let account = await loginL1Account();
-    return account;
-  },
+  loginL1Account,
 );
 
 export const accountSlice = createSlice({
@@ -59,9 +51,11 @@ export const accountSlice = createSlice({
   },
 });
 
-export const selectL1Account = <T extends State>(state: T) =>
-  state.account.l1Account;
-export const selectLoginStatus = <T extends State>(state: T) =>
-  state.account.status;
+export const selectL1Account = <T extends State>({
+  account: { l1Account },
+}: T) => l1Account;
+export const selectLoginStatus = <T extends State>({
+  account: { status },
+}: T) => status;
 
 export default accountSlice.reducer;
