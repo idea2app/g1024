@@ -64,12 +64,8 @@ async function registerValidSW(swUrl: string, config?: Config) {
     const registration = await navigator.serviceWorker.register(swUrl);
 
     registration.onupdatefound = () => {
-      const { installing } = registration;
-
-      if (!installing) return;
-
-      installing.onstatechange = () => {
-        if (installing?.state === 'installed') {
+      registration.installing?.addEventListener('statechange', () => {
+        if (registration.installing?.state === 'installed') {
           if (navigator.serviceWorker.controller) {
             // At this point, the updated precached content has been fetched,
             // but the previous service worker will still serve the older
@@ -91,7 +87,7 @@ async function registerValidSW(swUrl: string, config?: Config) {
             config?.onSuccess?.(registration);
           }
         }
-      };
+      });
     };
   } catch (error) {
     console.error('Error during service worker registration:', error);
