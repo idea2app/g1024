@@ -41,7 +41,7 @@ export function ProofInfoModal({
         console.log(`verification result: ${result}`);
       }
     } else {
-      console.error('walconst not connected');
+      console.error('wallet not connected');
     }
   }
 
@@ -49,35 +49,41 @@ export function ProofInfoModal({
     <Container>
       <Tabs defaultActiveKey="Inputs" className="mb-3" justify>
         <Tab eventKey="Inputs" title="Inputs">
-          <p>
-            Public Inputs: <Inputs inputs={public_inputs}></Inputs>
-          </p>
-          <p>
-            Witness: <Inputs inputs={private_inputs}></Inputs>
-          </p>
+          <ul className="list-unstyled">
+            <li>
+              Public Inputs: <Inputs inputs={public_inputs} />
+            </li>
+            <li>
+              Witness: <Inputs inputs={private_inputs} />
+            </li>
+          </ul>
         </Tab>
         <Tab eventKey="Instances" title="Instances">
-          {instancesBN.map(proof => (
-            <ListGroup.Item key={proof.toString('hex')}>
-              0x{proof.toString('hex')}
-            </ListGroup.Item>
-          ))}
+          <ListGroup>
+            {instancesBN.map(proof => (
+              <ListGroup.Item key={proof.toString('hex')}>
+                0x{proof.toString('hex')}
+              </ListGroup.Item>
+            ))}
+          </ListGroup>
         </Tab>
         <Tab eventKey="prooftranscript" title="Proof Transcripts">
-          <div className="scroll-300">
+          <ListGroup className="scroll-300">
             {aggregateProof.map(proof => (
               <ListGroup.Item key={proof.toString('hex')}>
                 0x{proof.toString('hex')}
               </ListGroup.Item>
             ))}
-          </div>
+          </ListGroup>
         </Tab>
         <Tab eventKey="auxdata" title="Aux Data">
-          {auxBN.map(proof => (
-            <ListGroup.Item key={proof.toString('hex')}>
-              0x{proof.toString('hex')}
-            </ListGroup.Item>
-          ))}
+          <ListGroup>
+            {auxBN.map(proof => (
+              <ListGroup.Item key={proof.toString('hex')}>
+                0x{proof.toString('hex')}
+              </ListGroup.Item>
+            ))}
+          </ListGroup>
         </Tab>
       </Tabs>
     </Container>
