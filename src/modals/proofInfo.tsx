@@ -44,44 +44,43 @@ export function ProofInfoModal({
       console.error('walconst not connected');
     }
   }
+
   const taskproof = (
-    <>
-      <Container>
-        <Tabs defaultActiveKey="Inputs" className="mb-3" justify>
-          <Tab eventKey="Inputs" title="Inputs">
-            <p>
-              Public Inputs: <Inputs inputs={public_inputs}></Inputs>
-            </p>
-            <p>
-              Witness: <Inputs inputs={private_inputs}></Inputs>
-            </p>
-          </Tab>
-          <Tab eventKey="Instances" title="Instances">
-            {instancesBN.map(proof => (
+    <Container>
+      <Tabs defaultActiveKey="Inputs" className="mb-3" justify>
+        <Tab eventKey="Inputs" title="Inputs">
+          <p>
+            Public Inputs: <Inputs inputs={public_inputs}></Inputs>
+          </p>
+          <p>
+            Witness: <Inputs inputs={private_inputs}></Inputs>
+          </p>
+        </Tab>
+        <Tab eventKey="Instances" title="Instances">
+          {instancesBN.map(proof => (
+            <ListGroup.Item key={proof.toString('hex')}>
+              0x{proof.toString('hex')}
+            </ListGroup.Item>
+          ))}
+        </Tab>
+        <Tab eventKey="prooftranscript" title="Proof Transcripts">
+          <div className="scroll-300">
+            {aggregateProof.map(proof => (
               <ListGroup.Item key={proof.toString('hex')}>
                 0x{proof.toString('hex')}
               </ListGroup.Item>
             ))}
-          </Tab>
-          <Tab eventKey="prooftranscript" title="Proof Transcripts">
-            <div className="scroll-300">
-              {aggregateProof.map(proof => (
-                <ListGroup.Item key={proof.toString('hex')}>
-                  0x{proof.toString('hex')}
-                </ListGroup.Item>
-              ))}
-            </div>
-          </Tab>
-          <Tab eventKey="auxdata" title="Aux Data">
-            {auxBN.map(proof => (
-              <ListGroup.Item key={proof.toString('hex')}>
-                0x{proof.toString('hex')}
-              </ListGroup.Item>
-            ))}
-          </Tab>
-        </Tabs>
-      </Container>
-    </>
+          </div>
+        </Tab>
+        <Tab eventKey="auxdata" title="Aux Data">
+          {auxBN.map(proof => (
+            <ListGroup.Item key={proof.toString('hex')}>
+              0x{proof.toString('hex')}
+            </ListGroup.Item>
+          ))}
+        </Tab>
+      </Tabs>
+    </Container>
   );
 
   const props: ModalCommonProps = {
