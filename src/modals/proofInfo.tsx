@@ -27,6 +27,7 @@ export function ProofInfoModal({
     if (account) {
       const web3 = account.web3!;
       const image = await zkwasmHelper.queryImage(md5);
+
       if (image.deployment.length > 0) {
         const [{ address }] = image.deployment;
         const verify_contract = new web3.eth.Contract(
