@@ -1,6 +1,5 @@
 import './style.scss';
 
-import BN from 'bn.js';
 import { Container, ListGroup, Tab, Tabs } from 'react-bootstrap';
 import { Task } from 'zkwasm-service-helper';
 
@@ -16,17 +15,18 @@ export interface ProofInfoProps {
   task: Task;
 }
 
-export function ProofInfoModal(info: ProofInfoProps) {
+export function ProofInfoModal({
+  task: { md5, proof, instances, aux, public_inputs, private_inputs },
+}: ProofInfoProps) {
   const account = useAppSelector(selectL1Account);
-  const task = info.task;
-  const aggregate_proof = bytesToBN(task.proof);
-  const instances = bytesToBN(task.instances);
-  const aux = bytesToBN(task.aux);
+  const aggregateProof = bytesToBN(proof);
+  const instancesBN = bytesToBN(instances);
+  const auxBN = bytesToBN(aux);
 
   async function testverify() {
     if (account) {
       const web3 = account.web3!;
-      const image = await zkwasmHelper.queryImage(info.task.md5);
+      const image = await zkwasmHelper.queryImage(md5);
       if (image.deployment.length > 0) {
         const [{ address }] = image.deployment;
         const verify_contract = new web3.eth.Contract(
@@ -34,9 +34,9 @@ export function ProofInfoModal(info: ProofInfoProps) {
           address,
           { from: account!.address },
         );
-        const args = parseArgs(task.public_inputs).map(x => x.toString(10));
+        const args = parseArgs(public_inputs).map(x => x.toString(10));
         const result = await verify_contract.methods
-          .verify(aggregate_proof, instances, aux, [args])
+          .verify(aggregateProof, instancesBN, auxBN, [args])
           .send();
         console.log(`verification result: ${result}`);
       }
@@ -50,14 +50,14 @@ export function ProofInfoModal(info: ProofInfoProps) {
         <Tabs defaultActiveKey="Inputs" className="mb-3" justify>
           <Tab eventKey="Inputs" title="Inputs">
             <p>
-              Public Inputs: <Inputs inputs={task.public_inputs}></Inputs>
+              Public Inputs: <Inputs inputs={public_inputs}></Inputs>
             </p>
             <p>
-              Witness: <Inputs inputs={task.private_inputs}></Inputs>
+              Witness: <Inputs inputs={private_inputs}></Inputs>
             </p>
           </Tab>
           <Tab eventKey="Instances" title="Instances">
-            {instances.map(proof => (
+            {instancesBN.map(proof => (
               <ListGroup.Item key={proof.toString('hex')}>
                 0x{proof.toString('hex')}
               </ListGroup.Item>
@@ -65,28 +65,25 @@ export function ProofInfoModal(info: ProofInfoProps) {
           </Tab>
           <Tab eventKey="prooftranscript" title="Proof Transcripts">
             <div className="scroll-300">
-              {aggregate_proof.map((proof: BN) => {
-                return (
-                  <ListGroup.Item key={proof.toString('hex')}>
-                    0x{proof.toString('hex')}
-                  </ListGroup.Item>
-                );
-              })}
-            </div>
-          </Tab>
-          <Tab eventKey="auxdata" title="Aux Data">
-            {aux.map((proof: BN) => {
-              return (
+              {aggregateProof.map(proof => (
                 <ListGroup.Item key={proof.toString('hex')}>
                   0x{proof.toString('hex')}
                 </ListGroup.Item>
-              );
-            })}
+              ))}
+            </div>
+          </Tab>
+          <Tab eventKey="auxdata" title="Aux Data">
+            {auxBN.map(proof => (
+              <ListGroup.Item key={proof.toString('hex')}>
+                0x{proof.toString('hex')}
+              </ListGroup.Item>
+            ))}
           </Tab>
         </Tabs>
       </Container>
     </>
   );
+
   const props: ModalCommonProps = {
     buttonLabel: <button className="appearance-none">Click to show</button>,
     title: ['Proof ', 'Information'],
@@ -98,5 +95,6 @@ export function ProofInfoModal(info: ProofInfoProps) {
     message: '',
     confirmLabel: 'verify on chain',
   };
+
   return ModalCommon(props);
 }
