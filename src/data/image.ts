@@ -64,28 +64,24 @@ export function parseArg(input: string) {
 
   // Check if value is a number
   if (!(re1.test(value.slice(2)) || re2.test(value)))
-    return console.log('Error: input value is not an interger number');
+    throw new Error('input value is not an interger number');
 
   // Convert value byte array
-  if (type === 'i64') {
+  if (type === 'i64')
     return [
       value.startsWith('0x') ? new BN(value.slice(2), 16) : new BN(value),
     ];
-  } else if (type === 'bytes' || type === 'bytes-packed') {
+
+  if (type === 'bytes' || type === 'bytes-packed') {
     if (value.slice(0, 2) !== '0x') {
-      return console.log('Error: bytes input need start with 0x');
+      throw new Error('bytes input need start with 0x');
     }
 
     return hexToBNs(value.slice(2));
-  } else return console.log('Unsupported input data type: %s', type);
+  }
+
+  throw new Error(`Unsupported input data type: ${type}`);
 }
 
-export const parseArgs = (raw: Array<string>) =>
-  raw
-    .map(input => {
-      const args = parseArg(input.trim());
-
-      if (args != null) return args;
-      throw Error(`invalid args in ${input}`);
-    })
-    .flat();
+export const parseArgs = (raw: string[]) =>
+  raw.map(input => parseArg(input.trim())).flat();

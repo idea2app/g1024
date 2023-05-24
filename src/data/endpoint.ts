@@ -58,7 +58,7 @@ export const endpointSlice = createSlice({
       state.zkWasmServiceHelper = new ZkWasmServiceHelper(payload.url, '', '');
     },
     setEndpointList: (state, { payload }) => {
-      localStorage.setItem(storageKey, JSON.stringify(payload));
+      localStorage[storageKey] = JSON.stringify(payload);
       state.endpointList = payload;
     },
   },

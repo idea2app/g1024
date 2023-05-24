@@ -22,21 +22,19 @@ export function ProofInfoModal(info: ProofInfoProps) {
   const aggregate_proof = bytesToBN(task.proof);
   const instances = bytesToBN(task.instances);
   const aux = bytesToBN(task.aux);
+
   async function testverify() {
     if (account) {
       const web3 = account.web3!;
       const image = await zkwasmHelper.queryImage(info.task.md5);
       if (image.deployment.length > 0) {
-        const address = image.deployment[0].address;
+        const [{ address }] = image.deployment;
         const verify_contract = new web3.eth.Contract(
           contract_abi.abi,
           address,
-          {
-            from: account!.address,
-          },
+          { from: account!.address },
         );
         const args = parseArgs(task.public_inputs).map(x => x.toString(10));
-        console.log('args are:', args);
         const result = await verify_contract.methods
           .verify(aggregate_proof, instances, aux, [args])
           .send();
