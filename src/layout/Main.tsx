@@ -188,13 +188,15 @@ export function Main() {
                   const index = r * 4 + c;
 
                   return (
-                    <div
+                    <button
                       key={index}
-                      className={`${cellClass(index)} board-cell-out`}
+                      className={`appearance-none ${cellClass(
+                        index,
+                      )} board-cell-out`}
                       onClick={() => toggleSelect(index)}
                     >
                       {index === focus && <div />}
-                    </div>
+                    </button>
                   );
                 })}
               </div>

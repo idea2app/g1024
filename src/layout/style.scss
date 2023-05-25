@@ -46,14 +46,15 @@ div.content {
   --cell-margin: 12px;
 }
 
-div.board-cell {
+.board-cell {
   display: inline-block;
   height: var(--cell-size);
   width: var(--cell-size);
   margin-right: var(--cell-margin);
 }
 
-div.board-cell-out div {
+.board-cell-out div,
+button {
   display: inline-block;
   height: var(--cell-size);
   width: var(--cell-size);
@@ -61,7 +62,7 @@ div.board-cell-out div {
   border-radius: 5px;
 }
 
-div.board-cell-1 {
+.board-cell-1 {
   display: inline-block;
   height: var(--cell-size);
   width: var(--cell-size);
@@ -70,7 +71,7 @@ div.board-cell-1 {
   background-size: contain;
 }
 
-div.board-cell-2 {
+.board-cell-2 {
   display: inline-block;
   height: var(--cell-size);
   width: var(--cell-size);
@@ -79,7 +80,7 @@ div.board-cell-2 {
   background-size: contain;
 }
 
-div.board-cell-3 {
+.board-cell-3 {
   display: inline-block;
   height: var(--cell-size);
   width: var(--cell-size);
@@ -88,7 +89,7 @@ div.board-cell-3 {
   background-size: contain;
 }
 
-div.board-cell-4 {
+.board-cell-4 {
   display: inline-block;
   height: var(--cell-size);
   width: var(--cell-size);
@@ -97,7 +98,7 @@ div.board-cell-4 {
   background-size: contain;
 }
 
-div.board-cell-5 {
+.board-cell-5 {
   display: inline-block;
   height: var(--cell-size);
   width: var(--cell-size);
@@ -106,7 +107,7 @@ div.board-cell-5 {
   background-size: contain;
 }
 
-div.board-cell-6 {
+.board-cell-6 {
   display: inline-block;
   height: var(--cell-size);
   width: var(--cell-size);
@@ -115,7 +116,7 @@ div.board-cell-6 {
   background-size: contain;
 }
 
-div.board-cell-7 {
+.board-cell-7 {
   display: inline-block;
   height: var(--cell-size);
   width: var(--cell-size);
@@ -124,7 +125,7 @@ div.board-cell-7 {
   background-size: contain;
 }
 
-div.board-cell-8 {
+.board-cell-8 {
   display: inline-block;
   height: var(--cell-size);
   width: var(--cell-size);
@@ -133,7 +134,7 @@ div.board-cell-8 {
   background-size: contain;
 }
 
-div.board-cell-9 {
+.board-cell-9 {
   display: inline-block;
   height: var(--cell-size);
   width: var(--cell-size);
@@ -142,7 +143,7 @@ div.board-cell-9 {
   background-size: contain;
 }
 
-div.board-cell-10 {
+.board-cell-10 {
   display: inline-block;
   height: var(--cell-size);
   width: var(--cell-size);
@@ -151,7 +152,7 @@ div.board-cell-10 {
   background-size: contain;
 }
 
-div.board-cell-11 {
+.board-cell-11 {
   display: inline-block;
   height: var(--cell-size);
   width: var(--cell-size);
@@ -160,7 +161,7 @@ div.board-cell-11 {
   background-size: contain;
 }
 
-div.board-cell-12 {
+.board-cell-12 {
   display: inline-block;
   height: var(--cell-size);
   width: var(--cell-size);
@@ -169,7 +170,7 @@ div.board-cell-12 {
   background-size: contain;
 }
 
-div.board-cell-13 {
+.board-cell-13 {
   display: inline-block;
   height: var(--cell-size);
   width: var(--cell-size);
@@ -178,7 +179,7 @@ div.board-cell-13 {
   background-size: contain;
 }
 
-div.board-cell-14 {
+.board-cell-14 {
   display: inline-block;
   height: var(--cell-size);
   width: var(--cell-size);
@@ -187,7 +188,7 @@ div.board-cell-14 {
   background-size: contain;
 }
 
-div.board-cell-15 {
+.board-cell-15 {
   display: inline-block;
   height: var(--cell-size);
   width: var(--cell-size);
@@ -196,12 +197,21 @@ div.board-cell-15 {
   background-size: contain;
 }
 
-div.board-cell-16 {
+.board-cell-16 {
   display: inline-block;
   height: var(--cell-size);
   width: var(--cell-size);
   margin-right: var(--cell-margin);
   background-image: url('../images/16.png');
+  background-size: contain;
+}
+
+.board-cell-17 {
+  display: inline-block;
+  height: var(--cell-size);
+  width: var(--cell-size);
+  margin-right: var(--cell-margin);
+  background-image: url('../images/17.png');
   background-size: contain;
 }
 
