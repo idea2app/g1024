@@ -18,7 +18,7 @@ import Four from '../images/4.png';
 import Control from '../images/control.svg';
 import initGameInstance from '../js/g1024';
 import { NewProveTask } from '../modals/addNewProveTask';
-import tour from '../utils/shepherd';
+import { tour } from '../utils/shepherd';
 
 const DirectionKeys = [
   'ArrowUp',
@@ -70,11 +70,8 @@ export function Main() {
   }, [currency]);
 
   useEffect(() => {
-    if (account) {
-      tour.cancel();
-    } else {
-      tour.start();
-    }
+    if (account) tour.cancel();
+    else tour.start();
   }, [account]);
 
   const getWitness = () =>

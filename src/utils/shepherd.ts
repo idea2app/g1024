@@ -3,7 +3,7 @@ import '../styles/shepherd.scss';
 import Shepherd from 'shepherd.js';
 import Step from 'shepherd.js/src/types/step';
 
-const tour = new Shepherd.Tour({
+export const tour = new Shepherd.Tour({
   useModalOverlay: true,
   defaultStepOptions: {
     classes: 'intro common-card-bg-box',
@@ -56,10 +56,4 @@ const customSteps: Pick<Step.StepOptions, 'text' | 'attachTo'>[] = [
   },
 ];
 
-tour.addSteps(
-  customSteps.map(step => {
-    return { ...defaultStepOption, ...step };
-  }),
-);
-
-export default tour;
+tour.addSteps(customSteps.map(step => ({ ...defaultStepOption, ...step })));
