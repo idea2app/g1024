@@ -198,13 +198,15 @@ export function Main() {
                     const index = r * 4 + c;
 
                     return (
-                      <div
+                      <button
                         key={index}
-                        className={`${cellClass(index)} board-cell-out`}
+                        className={`appearance-none ${cellClass(
+                          index,
+                        )} board-cell-out`}
                         onClick={() => toggleSelect(index)}
                       >
                         {index === focus && <div />}
-                      </div>
+                      </button>
                     );
                   })}
                 </div>
@@ -212,19 +214,6 @@ export function Main() {
             </div>
           </Col>
         </Row>
-
-        <div className="container-max mx-auto d-flex justify-content-between my-3">
-          <CommonButton className="w-50 me-2" border onClick={sell}>
-            Sell
-          </CommonButton>
-          <div className="w-50 ms-2">
-            <NewProveTask
-              md5="77DA9B5A42FABD295FD67CCDBDF2E348"
-              inputs={`${commands.length}:i64`}
-              witness={getWitness()}
-            />
-          </div>
-        </div>
       </div>
 
       <div className="text-center lead-step-1">
