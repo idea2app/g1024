@@ -205,7 +205,7 @@ export function Main() {
                         )} board-cell-out`}
                         onClick={() => toggleSelect(index)}
                       >
-                        {index === focus && <div />}
+                        {index === focus && <span />}
                       </button>
                     );
                   })}
