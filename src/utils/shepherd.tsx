@@ -37,7 +37,9 @@ const renderContent = (text: string, current: number, max: number = 3) =>
   renderToStaticMarkup(
     <>
       <h3 className="text-white">
-        Step <span className="gradient-content">{current}</span> Of {max}
+        Step
+        <span className="gradient-content mx-2">{current}</span>
+        Of {max}
       </h3>
       <p className="text-white">{text}</p>
     </>,
