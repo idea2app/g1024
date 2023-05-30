@@ -7,9 +7,9 @@ import { Col, Container, Row } from 'react-bootstrap';
 
 import { useAppSelector } from '../app/hooks';
 import { CommonButton } from '../components/CommonButton';
-import { Control } from '../components/Control';
 import { CurrencyDisplay } from '../components/Currency';
 import History from '../components/History';
+import { KeyControl } from '../components/KeyControl';
 import { MainNavBar } from '../components/Nav';
 import { selectL1Account } from '../data/accountSlice';
 import One from '../images/1.png';
@@ -228,7 +228,7 @@ export function Main() {
         </Col>
         <Col lg={3} xs={12}>
           <div className="lead-step-1 bg-gradient control rouned-pill mb-2 game-width d-flex justify-content-center pt-3 pb-4 px-5">
-            <Control {...{ keyIndex, step }} />
+            <KeyControl value={keyIndex} onChange={step} />
           </div>
         </Col>
       </Row>

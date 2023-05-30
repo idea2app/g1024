@@ -37,7 +37,7 @@ div.content {
   padding-top: 1rem;
   width: 35rem;
   height: 35rem;
-  background-size: 35rem 35rem;
+  background-size: cover;
   @extend .bg-gradient;
   border-radius: 20px;
   --cell-size: 7.25rem;
