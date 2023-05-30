@@ -130,10 +130,8 @@ div.content {
 
 .control {
   border-radius: 20px;
-}
 
-@media screen and (min-width: 992px) {
-  .control {
+  @media screen and (min-width: 992px) {
     margin-top: 4.5rem;
   }
 }

@@ -50,7 +50,7 @@ export function Main() {
 
     if (index >= 0) {
       event.preventDefault();
-      step(index % 4);
+      handleStep(index % 4);
     }
   }
 
@@ -129,27 +129,27 @@ export function Main() {
     return icons;
   }
 
-  async function step(k: number) {
+  async function handleStep(index: number) {
     const ins = await initGameInstance();
     if (!ins.getCurrency()) return alert('not enough currency to proceed!');
 
-    setKeyIndex(k);
+    setKeyIndex(index);
     setFocus(-1);
-    ins.step(k);
+    ins.step(index);
     for (let i = 0; i < 16; i++) {
       board[i] = ins.getBoard(i);
     }
     setBoard([...board]);
     setHighscore(board.reduce((prev, cur) => prev + (cur ? 2 ** cur : cur), 0));
     setCurrency(ins.getCurrency());
-    appendCommand([k]);
+    appendCommand([index]);
   }
 
   async function toggleSelect(focus: number) {
     setFocus(focus);
   }
 
-  async function sell() {
+  async function handleSell() {
     const ins = await initGameInstance();
     if (focus !== -1) {
       let focusValue = ins.getBoard(focus);
@@ -212,7 +212,7 @@ export function Main() {
               </div>
             </Col>
             <Col className="container-max mx-auto d-flex justify-content-between my-3">
-              <CommonButton className="w-50 me-2" border onClick={sell}>
+              <CommonButton className="w-50 me-2" border onClick={handleSell}>
                 <span className="gradient-content">Sell</span>
               </CommonButton>
               <div className="w-50 ms-2">
@@ -228,7 +228,7 @@ export function Main() {
         </Col>
         <Col lg={3} xs={12}>
           <div className="lead-step-1 bg-gradient control rouned-pill mb-2 game-width d-flex justify-content-center pt-3 pb-4 px-5">
-            <KeyControl value={keyIndex} onChange={step} />
+            <KeyControl value={keyIndex} onChange={handleStep} />
           </div>
         </Col>
       </Row>
