@@ -242,7 +242,7 @@ export function Main() {
                   className="appearance-none ps-0 me-1"
                   onClick={() => setShowInputsAsRaw(!showInputsAsRaw)}
                 >
-                  <i className="bi bi-eye" />
+                  <i className="bi bi-eye gradient-content" />
                 </button>
                 <span>
                   {showInputsAsRaw ? 'Show Commands' : 'Show Raw Proof Inputs'}
