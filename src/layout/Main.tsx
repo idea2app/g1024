@@ -8,7 +8,6 @@ import { Col, Container, Row } from 'react-bootstrap';
 import { CommonButton } from '../components/CommonButton';
 import { Control } from '../components/Control';
 import { CurrencyDisplay } from '../components/Currency';
-import History from '../components/History';
 import { KeyControl } from '../components/KeyControl';
 import { MainNavBar } from '../components/Nav';
 import One from '../images/1.png';
@@ -289,10 +288,6 @@ export function Main() {
             <span className="ms-2">...</span>
           </div>
         </div>
-      </div>
-
-      <div className="my-4">
-        <History md5="77DA9B5A42FABD295FD67CCDBDF2E348" />
       </div>
     </Container>
   );
