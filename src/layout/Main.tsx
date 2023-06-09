@@ -107,19 +107,41 @@ export function Main() {
 
       switch (commands[i]) {
         case 0:
-          icon = <i className="bi bi-arrow-up mx-1"></i>;
+          icon = (
+            <i className="bi bi-arrow-up mx-1" key={i + '-' + commands[i]}></i>
+          );
           break;
         case 1:
-          icon = <i className="bi bi-arrow-left mx-1"></i>;
+          icon = (
+            <i
+              className="bi bi-arrow-left mx-1"
+              key={i + '-' + commands[i]}
+            ></i>
+          );
           break;
         case 2:
-          icon = <i className="bi bi-arrow-down mx-1"></i>;
+          icon = (
+            <i
+              className="bi bi-arrow-down mx-1"
+              key={i + '-' + commands[i]}
+            ></i>
+          );
           break;
         case 3:
-          icon = <i className="bi bi-arrow-right mx-1"></i>;
+          icon = (
+            <i
+              className="bi bi-arrow-right mx-1"
+              key={i + '-' + commands[i]}
+            ></i>
+          );
           break;
         case 4:
-          icon = <i className="bi bi-cash-stack mx-1"></i>;
+          icon = (
+            <i
+              className="bi bi-cash-stack mx-1"
+              key={i + '-' + commands[i]}
+            ></i>
+          );
           break;
 
         default:
