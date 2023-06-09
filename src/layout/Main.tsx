@@ -33,7 +33,7 @@ export function Main() {
   const [focus, setFocus] = useState(-1);
   const [currency, setCurrency] = useState(20);
   const [commands, setCommands] = useState<number[]>([]);
-  const [highscore, setHighscore] = useState(0);
+  const [highscore, setHighscore] = useState(currency);
   const [keyIndex, setKeyIndex] = useState(-1);
   const [showInputsAsRaw, setShowInputsAsRaw] = useState(false);
   const { lastTime } = localStorage;
@@ -51,6 +51,12 @@ export function Main() {
     }
   }
 
+  const setCurrencyAndHighscore = (ins: any) => {
+    const newCurrency = ins.getCurrency();
+    setCurrency(newCurrency);
+    setHighscore(highscore => Math.max(newCurrency, highscore));
+  };
+
   useEffect(() => {
     if (lastTime) tour.cancel();
     else tour.start();
@@ -60,7 +66,7 @@ export function Main() {
         board[i] = ins.getBoard(i);
       }
       setBoard([...board]);
-      setCurrency(ins.getCurrency());
+      setCurrencyAndHighscore(ins);
     });
     document.addEventListener('keydown', arrowFunction, false);
     return () => document.removeEventListener('keydown', arrowFunction, false);
@@ -135,8 +141,7 @@ export function Main() {
       board[i] = ins.getBoard(i);
     }
     setBoard([...board]);
-    setHighscore(board.reduce((prev, cur) => prev + (cur ? 2 ** cur : cur), 0));
-    setCurrency(ins.getCurrency());
+    setCurrencyAndHighscore(ins);
     appendCommand([index]);
   }
 
@@ -157,7 +162,7 @@ export function Main() {
         board[i] = ins.getBoard(i);
       }
       setBoard([...board]);
-      setCurrency(ins.getCurrency());
+      setCurrencyAndHighscore(ins);
 
       appendCommand([4, focus]);
       setFocus(-1);
