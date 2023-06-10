@@ -214,9 +214,9 @@ export function Main() {
               <CurrencyDisplay tag="Score" value={currency} />
             </Col>
             <Col xs={12} className="d-flex justify-content-center mt-3">
-              <div className="content d-flex justify-content-center">
+              <div className="content d-flex justify-content-center flex-column flex-shrink-0">
                 {Array.from(new Array(4), (_, r) => (
-                  <div className="board-row" key={r}>
+                  <div className="m-0 p-0 flex-nowrap board-row" key={r}>
                     {Array.from(new Array(4), (_, c) => {
                       const index = r * 4 + c;
 
@@ -225,11 +225,9 @@ export function Main() {
                           key={index}
                           className={`appearance-none board-cell-out ${cellClass(
                             index,
-                          )}`}
+                          )}${index === focus ? ' active' : ''}`}
                           onClick={() => toggleSelect(index)}
-                        >
-                          {index === focus && <span />}
-                        </button>
+                        />
                       );
                     })}
                   </div>
