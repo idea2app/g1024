@@ -105,19 +105,19 @@ export function Main() {
         }
       }
 
+      const iconNames = [
+        'arrow-up',
+        'arrow-left',
+        'arrow-down',
+        'arrow-right',
+        'cash-stack',
+      ];
       const command = commands[i];
+
       icons.push(
         command >= 0 && command < 5 ? (
           <i
-            className={`bi bi-${
-              [
-                'arrow-up',
-                'arrow-left',
-                'arrow-down',
-                'arrow-right',
-                'cash-stack',
-              ][command]
-            } mx-1`}
+            className={`bi bi-${iconNames[command]} mx-1`}
             key={i + '-' + command}
           />
         ) : (
