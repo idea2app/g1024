@@ -90,7 +90,7 @@ export function NewProveTask({
       const contract = await withBrowerWeb3(async web3 =>
         web3.getContract(
           GameSoulbound,
-          '0x4edf97c6F25Af40EE924940eD55f9786283121a9',
+          '0x38F8Ba93371C0C9C59E3bD2283b3E9869d3bc3C1',
           task.user_address,
         ),
       );
