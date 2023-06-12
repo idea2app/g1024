@@ -64,6 +64,24 @@
     }
   }
 
+  .dropdown-user {
+    .dropdown-toggle::after {
+      content: none;
+    }
+
+    .dropdown-menu {
+      background-color: #05050f;
+
+      .dropdown-item {
+        color: #4e78b8;
+
+        &:hover {
+          background-color: #05050f;
+        }
+      }
+    }
+  }
+
   .connect {
     background: linear-gradient(90deg, #418dff 1.64%, #4bffdf 98.6%);
     border-radius: 30px;

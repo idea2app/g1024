@@ -15,6 +15,7 @@ import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { CommonBg } from '../components/CommonBg';
 import { CommonButton } from '../components/CommonButton';
 import { selectL1Account } from '../data/accountSlice';
+import { switchNet } from '../data/chainNet';
 import { loadStatus } from '../data/statusSlice';
 import Failed from '../images/failed.png';
 import Success from '../images/success.png';
@@ -84,6 +85,8 @@ export function NewProveTask({
   };
 
   const addNewProveTask = async function () {
+    await withBrowerWeb3(async web3 => switchNet(web3));
+
     const task = await prepareNewProveTask();
 
     try {
