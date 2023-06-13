@@ -234,7 +234,7 @@ export function Main() {
           </div>
           <button
             className="appearance-none mt-3 tutorial-btn fw-semibold fs-5"
-            onClick={() => tour.start()}
+            onClick={tour.start}
           >
             <i className="bi bi-tools me-2" />
             <span>Game tutorial</span>

@@ -26,7 +26,7 @@ export function MainNavBar({ highscore }: IProps) {
   const isLogin = useMemo(
     () =>
       !!account?.address &&
-      account.address?.toLocaleLowerCase() ===
+      account.address.toLocaleLowerCase() ===
         localStorageAccount?.toLocaleLowerCase(),
     [account, localStorageAccount],
   );
@@ -36,10 +36,10 @@ export function MainNavBar({ highscore }: IProps) {
     window.location.reload();
   };
 
-  let runTime = useRef(0);
+  const runTime = useRef(0);
   useEffect(() => {
     if (runTime.current < 1) {
-      runTime.current = runTime.current + 1;
+      runTime.current++;
 
       withBrowerWeb3(async web3 => {
         (web3 as Web3BrowsersMode).provider.on('accountsChanged', accounts => {
@@ -52,7 +52,7 @@ export function MainNavBar({ highscore }: IProps) {
           string[]
         >({ method: 'eth_accounts' });
 
-        if (accounts?.length === 0) return (localStorage.account = '');
+        if (!accounts?.[0]) return (localStorage.account = '');
 
         dispatch(
           setL1Account(

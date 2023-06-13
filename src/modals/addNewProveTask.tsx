@@ -85,7 +85,7 @@ export function NewProveTask({
   };
 
   const addNewProveTask = async function () {
-    await withBrowerWeb3(async web3 => switchNet(web3));
+    await withBrowerWeb3(web3 => switchNet(web3));
 
     const task = await prepareNewProveTask();
 
