@@ -10,9 +10,9 @@ export interface L1AccountInfo extends Record<'address' | 'chainId', string> {
 const loginL1Account = async () => {
   const accountInfo = await withBrowerWeb3(async web3 => {
     switchNet(web3);
-    const accountInfo = await web3.getAccountInfo();
-    return accountInfo;
+    return web3.getAccountInfo();
   });
+
   localStorage.account = accountInfo.address;
   return accountInfo;
 };

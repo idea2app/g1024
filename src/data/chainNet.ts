@@ -13,12 +13,14 @@ export const chainNet = {
 };
 
 export const switchNet = async (web3: DelphinusWeb3) => {
-  const { chainName, nativeCurrency } = chainNet;
+  const { chainId, chainName, nativeCurrency, rpcUrls, blockExplorerUrls } =
+    chainNet;
+
   await web3.switchNet(
-    web3.web3Instance.utils.numberToHex(chainNet.chainId),
+    web3.web3Instance.utils.numberToHex(chainId),
     chainName,
-    chainNet.rpcUrls[0],
+    rpcUrls[0],
     nativeCurrency,
-    chainNet.blockExplorerUrls[0],
+    blockExplorerUrls[0],
   );
 };

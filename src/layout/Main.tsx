@@ -233,7 +233,7 @@ export function Main() {
             <KeyControl value={keyIndex} onChange={handleStep} />
           </div>
           <button
-            className="appearance-none mt-3 tutorial-btn"
+            className="appearance-none mt-3 tutorial-btn fw-semibold fs-5"
             onClick={() => tour.start()}
           >
             <i className="bi bi-tools me-2" />

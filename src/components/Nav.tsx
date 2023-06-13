@@ -31,13 +31,12 @@ export function MainNavBar({ highscore }: IProps) {
     [account, localStorageAccount],
   );
 
-  let runTime = useRef(0);
-
   const disconnect = () => {
     localStorage.account = '';
     window.location.reload();
   };
 
+  let runTime = useRef(0);
   useEffect(() => {
     if (runTime.current < 1) {
       runTime.current = runTime.current + 1;
@@ -51,9 +50,7 @@ export function MainNavBar({ highscore }: IProps) {
 
         const accounts = await (web3 as Web3BrowsersMode).provider.request<
           string[]
-        >({
-          method: 'eth_accounts',
-        });
+        >({ method: 'eth_accounts' });
 
         if (accounts?.length === 0) return (localStorage.account = '');
 
