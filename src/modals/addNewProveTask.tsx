@@ -10,10 +10,10 @@ import {
   ZkWasmUtil,
 } from 'zkwasm-service-helper';
 
-import GameSoulbound from '../abi/GameSoulbound.json';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { CommonBg } from '../components/CommonBg';
 import { CommonButton } from '../components/CommonButton';
+import { abiAndAddress } from '../data/abiAndAddress';
 import { selectL1Account } from '../data/accountSlice';
 import { switchNet } from '../data/chainNet';
 import { loadStatus } from '../data/statusSlice';
@@ -92,8 +92,8 @@ export function NewProveTask({
     try {
       const contract = await withBrowerWeb3(async web3 =>
         web3.getContract(
-          GameSoulbound,
-          '0x38F8Ba93371C0C9C59E3bD2283b3E9869d3bc3C1',
+          abiAndAddress.gameSoulbound.abi,
+          abiAndAddress.gameSoulbound.address,
           task.user_address,
         ),
       );
