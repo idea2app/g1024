@@ -135,3 +135,9 @@ div.content {
     margin-top: 4.5rem;
   }
 }
+
+.tutorial-btn:hover {
+  i, span {
+    @extend .gradient-content;
+  }
+}
