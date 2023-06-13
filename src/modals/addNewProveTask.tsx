@@ -90,7 +90,7 @@ export function NewProveTask({
     const task = await prepareNewProveTask();
 
     try {
-      const contract = await withBrowerWeb3(async web3 =>
+      const contract = await withBrowerWeb3(web3 =>
         web3.getContract(
           abiAndAddress.gameSoulbound.abi,
           abiAndAddress.gameSoulbound.address,
