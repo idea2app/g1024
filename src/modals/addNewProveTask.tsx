@@ -130,9 +130,9 @@ export function NewProveTask({
     <Form.Group className="mb-3">
       <Form.Label variant="dark">{label}</Form.Label>
       <CommonBg>
-        <div className="my-3 mx-2 px-1 text-break form-group-item overflow-auto">
+        <output className="my-3 mx-2 px-1 text-break form-group-item overflow-auto">
           {value}
-        </div>
+        </output>
       </CommonBg>
     </Form.Group>
   );
