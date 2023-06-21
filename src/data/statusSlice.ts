@@ -17,6 +17,15 @@ const initialState: StatusState = {
     totalDeployed: 0,
     totalTasks: 0,
   },
+  config: {
+    receiver_address: '',
+    deployer_address: '',
+    task_fee_list: {
+      setup_fee: '',
+      prove_fee: '',
+    },
+    chain_info_list: [],
+  },
 };
 
 export const loadStatus = createAsyncThunk(
