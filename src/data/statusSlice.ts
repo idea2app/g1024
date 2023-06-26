@@ -8,7 +8,7 @@ import {
 
 import { RootState } from '../app/store';
 
-const initialState: StatusState = {
+const initialState: Omit<StatusState, 'config'> = {
   tasks: [],
   loaded: false,
   statistics: {
@@ -16,15 +16,6 @@ const initialState: StatusState = {
     totalProofs: 0,
     totalDeployed: 0,
     totalTasks: 0,
-  },
-  config: {
-    receiver_address: '',
-    deployer_address: '',
-    task_fee_list: {
-      setup_fee: '',
-      prove_fee: '',
-    },
-    chain_info_list: [],
   },
 };
 
