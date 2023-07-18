@@ -154,14 +154,15 @@ export function Main() {
       return alert('Please select the highest value block to sell');
 
     let focusValue = ins.getBoard(focus);
-    for (let i = 0; i < 16; i++) {
+
+    for (let i = 0; i < 16; i++)
       if (ins.getBoard(i) > focusValue)
         return alert('can only sell highest value block');
-    }
+
     ins.sell(focus);
-    for (let i = 0; i < 16; i++) {
-      board[i] = ins.getBoard(i);
-    }
+
+    for (let i = 0; i < 16; i++) board[i] = ins.getBoard(i);
+
     setBoard([...board]);
     setCurrencyAndHighscore(ins);
 
