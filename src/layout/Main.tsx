@@ -153,7 +153,7 @@ export function Main() {
     if (focus === -1)
       return alert('Please select the highest value block to sell');
 
-    let focusValue = ins.getBoard(focus);
+    const focusValue = ins.getBoard(focus);
 
     for (let i = 0; i < 16; i++)
       if (ins.getBoard(i) > focusValue)
