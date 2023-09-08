@@ -41,8 +41,10 @@ export const addProvingTask = createAsyncThunk(
 
 export const addProofTask = createAsyncThunk(
   'status/addProveTask',
-  (task: WithSignature<ProvingParams>) => {
-    return zkcServerClient.post('task/proof', task);
+  async (task: WithSignature<ProvingParams>) => {
+    const { body } = await zkcServerClient.post('task/proof', task);
+
+    return body;
   },
 );
 

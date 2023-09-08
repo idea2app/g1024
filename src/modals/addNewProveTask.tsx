@@ -89,7 +89,6 @@ export function NewProveTask({
 
     try {
       await dispatch(addProofTask(task));
-      // );
 
       setMessage('');
       setStatus(ModalStatus.PostConfirm);
