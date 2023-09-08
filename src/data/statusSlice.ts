@@ -7,6 +7,7 @@ import {
 } from 'zkwasm-service-helper';
 
 import { RootState } from '../app/store';
+import { zkcServerClient } from './base';
 
 const initialState: Omit<StatusState, 'config'> = {
   tasks: [],
@@ -35,6 +36,13 @@ export const addProvingTask = createAsyncThunk(
     const { endpoint } = thunkApi.getState() as RootState;
 
     return endpoint.zkWasmServiceHelper.addProvingTask(task);
+  },
+);
+
+export const addProofTask = createAsyncThunk(
+  'status/addProveTask',
+  (task: WithSignature<ProvingParams>) => {
+    return zkcServerClient.post('task/proof', task);
   },
 );
 
