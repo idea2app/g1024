@@ -73,7 +73,7 @@ export function NewProveTask({
     } catch (e: unknown) {
       console.log('error signing message', e);
       setStatus(ModalStatus.Error);
-      throw Error('Unsigned Transaction');
+      throw new Error('Unsigned Transaction');
     }
 
     const task: WithSignature<ProvingParams> = {
@@ -99,7 +99,7 @@ export function NewProveTask({
     } catch (error) {
       const { message } = error as Error;
 
-      if (message && /Insufficient funds for user/.test(message)) {
+      if (message?.includes('Insufficient funds for user')) {
         setIsInsufficientError(true);
       }
 

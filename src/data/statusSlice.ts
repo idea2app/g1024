@@ -53,11 +53,9 @@ export const addProofTask = createAsyncThunk(
     } catch (error) {
       const { body } = error as ErrorBaseData;
 
-      if (body?.body && /Insufficient funds for user/.test(body?.body)) {
-        throw body?.body;
-      }
-
-      throw error;
+      throw body?.body.includes('Insufficient funds for user')
+        ? new Error(body.body)
+        : error;
     }
   },
 );
